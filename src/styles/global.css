@@ -8,9 +8,9 @@
 
 /* ---- CSS Variables ---- */
 :root {
-  --accent:        #D4A800;   /* yellow-gold — LED glow from logo */
-  --accent-bright: #FFD000;   /* bright yellow-gold for hover/highlights */
-  --accent-glow:   rgba(212,168,0,0.25);
+  --accent:        #F0C000;   /* bright yellow-gold */
+  --accent-bright: #FFD700;   /* vivid yellow for hover/highlights */
+  --accent-glow:   rgba(240,192,0,0.28);
   --green:         #2D5A27;   /* forest green — logo text color */
   --green-light:   #3A7230;
 
