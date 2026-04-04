@@ -1,0 +1,127 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav    from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Quote Request Received | Teton Exterior Lighting"
+  description="Thanks for reaching out to Teton Exterior Lighting. We'll be in touch within 24 hours."
+  noindex={true}
+>
+  <Nav />
+
+  <section class="success-page">
+    <div class="container success-inner">
+      <div class="success-card">
+        <div class="success-icon">🎉</div>
+        <h1>Congrats on Taking the First Step!</h1>
+        <p class="lead">
+          You're on your way to having the best-lit house on the block.
+        </p>
+        <p>
+          We received your request and will be in touch within <strong>24 hours</strong> to
+          schedule your free quote. Keep an eye on your phone — we'll call or text at
+          <strong>(208) 557-9009</strong>.
+        </p>
+        <div class="success-next">
+          <h3>Here's What to Expect Next:</h3>
+          <ol>
+            <li>We'll reach out to confirm your quote appointment.</li>
+            <li>A Teton team member comes to your home, measures your roofline, and walks you through all the options.</li>
+            <li>You get a clear, no-pressure quote on the spot.</li>
+            <li>When you're ready, we get you on the install schedule.</li>
+          </ol>
+        </div>
+        <div class="success-actions">
+          <a href="/" class="btn btn-gold btn-lg">Back to Home</a>
+          <a href="tel:+12085579009" class="btn btn-outline btn-lg">(208) 557-9009</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .success-page {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    background: var(--surface);
+    padding: 120px 0 80px;
+  }
+
+  .success-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .success-card {
+    background: var(--surface3);
+    border: 1px solid var(--border-gold);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2.5rem;
+    text-align: center;
+  }
+
+  .success-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+
+  .success-card h1 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 900;
+    color: var(--accent-bright);
+    margin-bottom: 0.75rem;
+  }
+
+  .lead {
+    font-size: 1.1rem;
+    color: var(--silver);
+    margin-bottom: 1rem;
+  }
+
+  .success-card > p {
+    font-size: 0.95rem;
+    color: var(--silver);
+    line-height: 1.75;
+    margin-bottom: 2rem;
+  }
+  .success-card strong { color: var(--white); }
+
+  .success-next {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+
+  .success-next h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .success-next ol {
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .success-next li {
+    font-size: 0.9rem;
+    color: var(--silver);
+    line-height: 1.6;
+  }
+
+  .success-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>

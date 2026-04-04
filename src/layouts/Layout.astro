@@ -1,0 +1,87 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = 'Teton Exterior Lighting installs permanent LED lighting for homes in Idaho Falls and Southeast Idaho. 3× brighter than DIY, 20–30 year lifespan, fully app-controlled.',
+  ogImage = '/images/og-image.jpg',
+  noindex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Teton Exterior Lighting',
+  description: 'Permanent LED exterior lighting installation for homes in Idaho Falls and Southeast Idaho.',
+  telephone: '+12085579009',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Idaho Falls',
+    addressRegion: 'ID',
+    addressCountry: 'US',
+  },
+  areaServed: {
+    '@type': 'State',
+    name: 'Southeast Idaho',
+  },
+  url: 'https://tetonexteriorlighting.com',
+  image: 'https://tetonexteriorlighting.com/images/logo.png',
+  sameAs: [
+    'https://www.facebook.com/profile.php?id=61582526130774',
+  ],
+  priceRange: '$$',
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content={canonicalURL} />
+  <meta property="og:title"       content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image"       content={new URL(ogImage, Astro.site)} />
+  <meta property="og:site_name"   content="Teton Exterior Lighting" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image"       content={new URL(ogImage, Astro.site)} />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/logo.png" />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</head>
+<body>
+  <slot />
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

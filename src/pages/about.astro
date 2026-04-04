@@ -1,0 +1,211 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav    from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="About Us | Teton Exterior Lighting — Idaho Falls, ID"
+  description="Learn about Teton Exterior Lighting — Idaho Falls' permanent LED lighting specialists serving all of Southeast Idaho. Our story, our mission, and why we do what we do."
+>
+  <Nav />
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Our Story</span>
+      <div class="gold-rule"></div>
+      <h1 class="section-title">We're Your Neighbors.<br />We Light Up Homes Like Yours.</h1>
+      <p class="section-body">
+        Based in Idaho Falls, we built Teton Exterior Lighting because we believe every home
+        in Southeast Idaho deserves to look extraordinary — not just during the holidays, but every single night.
+      </p>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="mission-section">
+    <div class="container mission-inner">
+      <div class="mission-text reveal">
+        <span class="eyebrow">Our Mission</span>
+        <div class="gold-rule"></div>
+        <h2 class="section-title">One Goal: Make Your<br />Home Unforgettable</h2>
+        <p class="section-body">
+          We got into this business because we kept seeing the same problem: homeowners spending
+          hours every season untangling lights, balancing on ladders, and ending up with a result
+          that looked nothing like what they imagined.
+        </p>
+        <p class="section-body" style="margin-top:0.75rem">
+          There's a better way. Permanent, professional-grade LED lighting that goes in once and
+          lasts 20–30 years. Controlled from your phone. Available in every color imaginable.
+          And installed by a team that treats your home with the same care we'd give our own.
+        </p>
+      </div>
+      <div class="mission-image reveal">
+        <img src="/images/house-exterior.jpg" alt="Beautiful home exterior at night" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="values-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow center">What We Stand For</span>
+        <div class="gold-rule center"></div>
+        <h2 class="section-title" style="text-align:center">Our Values</h2>
+      </div>
+      <div class="values-grid">
+        {[
+          { icon: '🤝', title: 'Honest, No-Pressure Process', body: "We give you a real quote with real options. You don't have to decide on the spot — but when you're ready, we'll be here." },
+          { icon: '🔧', title: 'We Own Our Work',             body: "If something isn't right, we fix it. No runaround, no fine print. We stand behind every installation we do." },
+          { icon: '🏡', title: 'Your Home, Our Standard',     body: "We treat every roofline like it's our own. Tidy installations, no damage, and hardware that disappears by day." },
+          { icon: '📍', title: 'Locally Rooted',              body: "We live and work in Southeast Idaho. We're not a national franchise — we're your neighbors, and we plan on being here for a long time." },
+        ].map(v => (
+          <div class="value-card reveal">
+            <div class="value-icon">{v.icon}</div>
+            <h3>{v.title}</h3>
+            <p>{v.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Service Area -->
+  <section class="service-area">
+    <div class="container sa-inner">
+      <div class="sa-text reveal">
+        <span class="eyebrow">Where We Work</span>
+        <div class="gold-rule"></div>
+        <h2 class="section-title">Serving All of<br />Southeast Idaho</h2>
+        <p class="section-body">
+          We're based in Idaho Falls and service the entire Southeast Idaho region. If you're within reach,
+          we can light up your home.
+        </p>
+        <ul class="area-list">
+          {['Idaho Falls', 'Ammon', 'Rexburg', 'Pocatello', 'Blackfoot', 'Rigby', 'Shelley', 'Chubbuck', 'And surrounding communities'].map(a => (
+            <li>✓ {a}</li>
+          ))}
+        </ul>
+      </div>
+      <div class="sa-cta reveal">
+        <div class="sa-cta-card">
+          <h3>Not Sure If We Serve Your Area?</h3>
+          <p>Give us a call or send us a message. If we can reach you, we will.</p>
+          <a href="tel:+12085579009" class="btn btn-gold btn-lg">(208) 557-9009</a>
+          <a href="/contact" class="btn btn-outline" style="margin-top:0.75rem">Send a Message</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="about-cta">
+    <div class="container" style="text-align:center">
+      <span class="eyebrow center">Ready to Get Started?</span>
+      <div class="gold-rule center"></div>
+      <h2 class="section-title reveal">Your Home's Transformation<br />Starts With One Conversation</h2>
+      <p class="section-body center reveal" style="margin-top:0.5rem">
+        Free quote. No obligation. No pressure.
+      </p>
+      <a href="/contact" class="btn btn-gold btn-lg reveal" style="margin-top:2rem">Get My Free Quote →</a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .page-hero {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    padding: 140px 0 80px;
+  }
+  .page-hero .section-title { max-width: 700px; }
+  .page-hero .section-body  { margin-top: 0.75rem; }
+
+  .mission-section {
+    background: var(--surface);
+    padding: var(--section-pad);
+  }
+  .mission-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .mission-image img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+  }
+
+  .values-section {
+    background: var(--surface2);
+    padding: var(--section-pad);
+  }
+  .section-header { margin-bottom: 3.5rem; }
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .value-card {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    transition: all var(--transition);
+  }
+  .value-card:hover { border-color: var(--border-gold); transform: translateY(-3px); }
+  .value-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .value-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .value-card p  { font-size: 0.9rem; color: var(--silver); line-height: 1.7; }
+
+  .service-area {
+    background: var(--surface);
+    padding: var(--section-pad);
+  }
+  .sa-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .area-list {
+    margin-top: 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 1.5rem;
+  }
+  .area-list li { font-size: 0.9rem; color: var(--silver); }
+  .area-list li:last-child { grid-column: 1 / -1; font-style: italic; color: var(--muted); }
+
+  .sa-cta-card {
+    background: var(--surface3);
+    border: 1px solid var(--border-gold);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .sa-cta-card h3 { font-size: 1.2rem; font-weight: 700; }
+  .sa-cta-card p  { font-size: 0.9rem; color: var(--silver); }
+
+  .about-cta {
+    background: var(--surface2);
+    border-top: 1px solid var(--border);
+    padding: var(--section-pad);
+  }
+
+  @media (max-width: 900px) {
+    .mission-inner, .sa-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .values-grid               { grid-template-columns: 1fr; }
+  }
+</style>

@@ -1,5 +1,16 @@
-.claude/
+# Astro
+dist/
+.astro/
 node_modules/
+
+# Env
+.env
+.env.*
+!.env.example
+
+# OS
 .DS_Store
 Thumbs.db
-*.log
+
+# Claude
+.claude/

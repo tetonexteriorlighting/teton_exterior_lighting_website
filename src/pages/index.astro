@@ -1,0 +1,738 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav    from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Teton Exterior Lighting | Permanent LED Home Lighting — Idaho Falls, ID"
+  description="Teton Exterior Lighting installs permanent LED lighting for homes across Idaho Falls and Southeast Idaho. 3× brighter than DIY, 20–30 year life, fully app-controlled. Get a free quote today."
+>
+  <Nav />
+
+  <!-- ===================================================
+       HERO
+  =================================================== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="container hero-content">
+      <span class="eyebrow">Permanent LED Lighting · Idaho Falls & Southeast Idaho</span>
+      <h1 class="hero-headline">
+        Be the <span class="gold">Best-Lit House</span><br />on Your Block
+      </h1>
+      <p class="hero-sub">
+        Stop fighting with temporary lights every season. We install stunning, permanent LED lighting
+        that you control from your phone — any color, any schedule, any occasion.
+      </p>
+      <div class="hero-ctas">
+        <a href="/contact" class="btn btn-gold btn-lg">Get My Free Quote</a>
+        <a href="#how-it-works" class="btn btn-outline btn-lg">See How It Works</a>
+      </div>
+      <div class="hero-trust">
+        <span>⭐⭐⭐⭐⭐ 5-Star Rated</span>
+        <span class="sep">|</span>
+        <span>20–30 Year Lifespan</span>
+        <span class="sep">|</span>
+        <span>3× Brighter Than DIY</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       STATS BAR
+  =================================================== -->
+  <section class="stats-bar">
+    <div class="container stats-grid">
+      {[
+        { num: '3×',    label: 'Brighter Than DIY' },
+        { num: '20–30', label: 'Year Expected Lifespan' },
+        { num: '16M+',  label: 'Color Combinations' },
+        { num: '100%',  label: 'App Controlled' },
+      ].map(s => (
+        <div class="stat reveal">
+          <span class="stat-num">{s.num}</span>
+          <span class="stat-label">{s.label}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ===================================================
+       CUSTOMER HERO / THE DREAM
+  =================================================== -->
+  <section class="dream" id="imagine">
+    <div class="container dream-inner">
+      <div class="dream-text reveal">
+        <span class="eyebrow">You're the Hero</span>
+        <div class="gold-rule"></div>
+        <h2 class="section-title">Imagine Coming Home<br />to <em class="gold">This</em> Every Night</h2>
+        <p class="section-body">
+          Your neighbors slow down as they drive past. Your kids beg you to turn on the lights.
+          Every holiday — Christmas, Halloween, Fourth of July, even a random Tuesday — your home
+          looks like it belongs on the cover of a magazine.
+        </p>
+        <p class="section-body" style="margin-top:0.75rem">
+          No more untangling cords. No more staple guns. No more ladders in December.
+          Just open the app, pick a preset, and watch your home come to life.
+        </p>
+        <a href="/contact" class="btn btn-gold" style="margin-top:1.75rem">I Want This for My Home</a>
+      </div>
+      <div class="dream-image reveal">
+        <img src="/images/house-night.jpg" alt="Home with permanent LED exterior lighting glowing at night" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       WHY TETON
+  =================================================== -->
+  <section class="why-section" id="why">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow center">The Teton Difference</span>
+        <div class="gold-rule center"></div>
+        <h2 class="section-title" style="text-align:center">Not All Permanent Lighting<br />Is Created Equal</h2>
+        <p class="section-body center" style="margin-top:0.5rem">
+          Here's why homeowners across Southeast Idaho choose Teton over the alternatives.
+        </p>
+      </div>
+
+      <div class="why-grid">
+        {[
+          { icon: '💡', title: '3× the Brightness',        body: 'Our commercial-grade tracks deliver three times the light output of typical DIY systems. The difference is visible from a block away — every single time.' },
+          { icon: '🎯', title: 'Individual LED Control',   body: 'Every single bulb is individually addressable. While others control large zones, we unlock stunning chasing effects and precision patterns they simply cannot match.' },
+          { icon: '⏳', title: '20–30 Year Lifespan',      body: 'This is a one-time investment. Our LED tracks outlast the next two to three decades of holiday seasons so you never deal with this problem again.' },
+          { icon: '🏠', title: 'Invisible by Day',         body: 'The controller hides under your soffit. The slim track color-matches your trim. No one knows it\'s there — until night falls and the show begins.' },
+          { icon: '🔧', title: 'We Handle Everything',     body: "We don't touch your home's electrical panel. Our team manages the full install, and if anything ever goes wrong, we fix it. Period." },
+          { icon: '📱', title: 'Set-It-and-Forget-It App', body: 'Schedule lights to come on at sunset and off at midnight automatically. Great light for you, respectful to your neighbors. Built-in good neighbor etiquette.' },
+        ].map(c => (
+          <div class="why-card reveal">
+            <div class="why-icon">{c.icon}</div>
+            <h3>{c.title}</h3>
+            <p>{c.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       HOW IT WORKS
+  =================================================== -->
+  <section class="hiw-section" id="how-it-works">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow center">Simple Process</span>
+        <div class="gold-rule center"></div>
+        <h2 class="section-title" style="text-align:center">From Quote to "Wow" in 3 Steps</h2>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <h3>Get Your Free Quote</h3>
+          <p>We measure your roofline, walk through your options, and give you a clear no-pressure quote. Most quotes take less than 30 minutes.</p>
+        </div>
+        <div class="step-arrow reveal">→</div>
+        <div class="step reveal">
+          <div class="step-num">02</div>
+          <h3>We Handle Installation</h3>
+          <p>Our team installs the track along your roofline and tucks the controller neatly under the soffit. Clean, professional, and inconspicuous — typically finished in a single day.</p>
+        </div>
+        <div class="step-arrow reveal">→</div>
+        <div class="step reveal">
+          <div class="step-num">03</div>
+          <h3>You Become a Legend</h3>
+          <p>We set up your app, add you to our demo account, and send a tutorial. From that evening forward, your home is the one everyone talks about.</p>
+        </div>
+      </div>
+
+      <div class="hiw-note reveal">
+        <p>🔧 <strong>We never touch your electrical panel.</strong> Our system runs on inconspicuous, low-voltage power hidden under your soffit. No electrician required.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       GALLERY
+  =================================================== -->
+  <section class="gallery-section" id="gallery">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow center">Our Work</span>
+        <div class="gold-rule center"></div>
+        <h2 class="section-title" style="text-align:center">Real Homes. Real Results.</h2>
+        <p class="section-body center" style="margin-top:0.5rem">Every home we light becomes a neighborhood landmark.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item large reveal">
+          <img src="/images/house-exterior.jpg" alt="Home with permanent exterior LED lighting" loading="lazy" />
+        </div>
+        <div class="gallery-item reveal">
+          <img src="/images/house-luxury.jpg" alt="Luxury home with elegant outdoor lighting" loading="lazy" />
+        </div>
+        <div class="gallery-item reveal">
+          <img src="/images/lights-bokeh.jpg" alt="Beautiful colorful LED lights at night" loading="lazy" />
+        </div>
+        <div class="gallery-item reveal">
+          <img src="/images/house-winter.jpg" alt="Classic home lit up in winter" loading="lazy" />
+        </div>
+        <div class="gallery-item reveal">
+          <img src="/images/lights-building.jpg" alt="Building with festive lights" loading="lazy" />
+        </div>
+        <div class="gallery-item reveal">
+          <img src="/images/house-lights-night.jpg" alt="Home glowing at night" loading="lazy" />
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:2rem">
+        <a href="https://www.facebook.com/profile.php?id=61582526130774" target="_blank" rel="noopener" class="btn btn-outline">
+          See More on Facebook →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       APP SECTION
+  =================================================== -->
+  <section class="app-section" id="app">
+    <div class="container app-inner">
+      <div class="app-phone reveal">
+        <div class="phone-mock">
+          <div class="phone-screen">
+            <div class="app-header-ui">Teton Lights</div>
+            <div class="color-wheel"></div>
+            <div class="preset-row">
+              <span class="chip red">Christmas</span>
+              <span class="chip blue">4th of July</span>
+              <span class="chip orange">Halloween</span>
+            </div>
+            <div class="brightness-ui">
+              <span>Brightness</span>
+              <div class="bar"><div class="bar-fill"></div></div>
+            </div>
+            <div class="schedule-ui">⏰ Schedule: Sunset → Midnight</div>
+          </div>
+        </div>
+      </div>
+      <div class="app-text reveal">
+        <span class="eyebrow">The App</span>
+        <div class="gold-rule"></div>
+        <h2 class="section-title">You Don't Have to Be<br />a Software Engineer</h2>
+        <p class="section-body">The app is built for real people. Pick a preset and you're done — or dive into endless customization when you're ready.</p>
+        <ul class="app-list">
+          {[
+            { icon: '🎨', title: 'Free Pre-Built Presets',   body: 'Christmas, Halloween, 4th of July, and dozens more — already loaded.' },
+            { icon: '⏱',  title: 'Smart Scheduling',        body: 'Lights on at sunset, off at midnight. Automatic, every night.' },
+            { icon: '🌈', title: 'Endless Customization',   body: 'Chase patterns, individual zones, custom animations — it\'s all there.' },
+            { icon: '🔆', title: 'Brightness Control',      body: 'All the way up for holidays, subtle glow for any other night.' },
+          ].map(f => (
+            <li>
+              <span class="app-icon">{f.icon}</span>
+              <div>
+                <strong>{f.title}</strong>
+                <p>{f.body}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       TESTIMONIALS
+  =================================================== -->
+  <section class="testimonials" id="testimonials">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow center">What Homeowners Are Saying</span>
+        <div class="gold-rule center"></div>
+        <h2 class="section-title" style="text-align:center">Congrats on Being the<br />Best-Lit House on the Block</h2>
+      </div>
+      <div class="testi-grid">
+        {[
+          { initial: 'J', name: 'Jason M.', location: 'Idaho Falls, ID', quote: 'I was skeptical at first, but after seeing our home lit up for Christmas I immediately told three neighbors. The individual LED control is unlike anything I\'ve seen — not even close to the DIY stuff.' },
+          { initial: 'S', name: 'Sarah K.', location: 'Ammon, ID',       quote: 'The app is genuinely easy. I set the schedule once and the lights come on every evening automatically. My kids love picking new presets for every holiday. Best investment we\'ve made.' },
+          { initial: 'R', name: 'Ryan T.', location: 'Pocatello, ID',    quote: 'The installation team was in and out so fast and left zero mess. You\'d never know the hardware was there during the day. Night comes and it\'s a total transformation.' },
+        ].map(t => (
+          <div class="testi-card reveal">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p class="quote">"{t.quote}"</p>
+            <div class="testi-author">
+              <div class="avatar">{t.initial}</div>
+              <div>
+                <strong>{t.name}</strong>
+                <span>{t.location}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       FINAL CTA BANNER
+  =================================================== -->
+  <section class="cta-banner">
+    <div class="container cta-inner reveal">
+      <div class="cta-text">
+        <h2>Ready to Transform Your Home?</h2>
+        <p>Most quotes take less than 30 minutes. No obligation. No pressure. Just a conversation about your home.</p>
+      </div>
+      <a href="/contact" class="btn btn-gold btn-lg">Get My Free Quote →</a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* ---- Hero ---- */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/hero-house.jpg');
+    background-size: cover;
+    background-position: center 40%;
+    will-change: transform;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(8,8,8,0.88) 0%, rgba(8,8,8,0.50) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 140px 24px 100px;
+    max-width: 800px;
+  }
+
+  .hero-headline {
+    font-size: clamp(2.6rem, 6.5vw, 5rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  .gold { color: var(--accent-bright); }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.72);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 2rem;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-trust {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    flex-wrap: wrap;
+  }
+  .sep { opacity: 0.3; }
+
+  /* ---- Stats Bar ---- */
+  .stats-bar {
+    background: var(--surface2);
+    border-top: 1px solid var(--border-gold);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    divide-x: 1px solid var(--border);
+  }
+
+  .stat {
+    padding: 2rem 1rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+  .stat:last-child { border-right: none; }
+
+  .stat-num {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.35rem;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  /* ---- Dream / Customer Hero ---- */
+  .dream {
+    background: var(--surface3);
+    padding: var(--section-pad);
+  }
+
+  .dream-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .dream-image img {
+    width: 100%;
+    height: 460px;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  }
+
+  /* ---- Why Teton ---- */
+  .why-section {
+    background: var(--surface);
+    padding: var(--section-pad);
+  }
+
+  .section-header { margin-bottom: 3.5rem; }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .why-card {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem 1.75rem;
+    transition: all var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+  .why-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--green-light));
+    opacity: 0;
+    transition: opacity var(--transition);
+  }
+  .why-card:hover { transform: translateY(-4px); border-color: var(--border-gold); }
+  .why-card:hover::before { opacity: 1; }
+
+  .why-icon { font-size: 2rem; margin-bottom: 1rem; }
+  .why-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.6rem; }
+  .why-card p { font-size: 0.9rem; color: var(--silver); line-height: 1.7; }
+
+  /* ---- How It Works ---- */
+  .hiw-section {
+    background: var(--surface2);
+    padding: var(--section-pad);
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    margin-top: 3.5rem;
+  }
+
+  .step {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: all var(--transition);
+  }
+  .step:hover { border-color: var(--border-gold); }
+
+  .step-num {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--accent);
+    opacity: 0.5;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+  .step h3 { font-size: 1.05rem; margin-bottom: 0.6rem; }
+  .step p  { font-size: 0.9rem; color: var(--silver); line-height: 1.7; }
+
+  .step-arrow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 3.5rem;
+    font-size: 1.75rem;
+    color: var(--accent);
+    opacity: 0.4;
+  }
+
+  .hiw-note {
+    margin-top: 3rem;
+    background: rgba(200,150,12,0.06);
+    border: 1px solid var(--border-gold);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.75rem;
+    text-align: center;
+  }
+  .hiw-note p { font-size: 0.95rem; color: var(--silver); }
+  .hiw-note strong { color: var(--accent-bright); }
+
+  /* ---- Gallery ---- */
+  .gallery-section {
+    background: var(--surface);
+    padding: var(--section-pad);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 280px 280px;
+    gap: 12px;
+    margin-top: 3rem;
+  }
+
+  .gallery-item {
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+    background: var(--surface3);
+  }
+  .gallery-item.large { grid-column: span 2; }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .gallery-item:hover img { transform: scale(1.05); }
+
+  /* ---- App Section ---- */
+  .app-section {
+    background: var(--surface3);
+    padding: var(--section-pad);
+  }
+
+  .app-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .phone-mock {
+    width: 240px;
+    height: 460px;
+    background: #111;
+    border-radius: 36px;
+    border: 6px solid #222;
+    margin: 0 auto;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+    overflow: hidden;
+    position: relative;
+  }
+  .phone-mock::before {
+    content: '';
+    position: absolute;
+    top: 12px; left: 50%;
+    transform: translateX(-50%);
+    width: 60px; height: 6px;
+    background: #222;
+    border-radius: 3px;
+    z-index: 2;
+  }
+
+  .phone-screen {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg, #0a0e1a 0%, #1a2744 100%);
+    padding: 32px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .app-header-ui {
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-align: center;
+    margin-top: 4px;
+  }
+
+  .color-wheel {
+    width: 96px; height: 96px;
+    border-radius: 50%;
+    background: conic-gradient(red, orange, yellow, green, cyan, blue, violet, red);
+    margin: 0 auto;
+    box-shadow: 0 0 30px rgba(255,255,255,0.15);
+  }
+
+  .preset-row { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+  .chip {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: #fff;
+  }
+  .chip.red    { background: rgba(220,50,50,0.7); }
+  .chip.blue   { background: rgba(50,100,220,0.7); }
+  .chip.orange { background: rgba(220,110,30,0.7); }
+
+  .brightness-ui > span { display: block; font-size: 0.62rem; color: rgba(255,255,255,0.45); margin-bottom: 4px; }
+  .bar { height: 5px; background: rgba(255,255,255,0.1); border-radius: 3px; }
+  .bar-fill { height: 100%; width: 68%; background: linear-gradient(90deg, var(--accent), var(--accent-bright)); border-radius: 3px; }
+
+  .schedule-ui {
+    background: rgba(255,255,255,0.05);
+    border-radius: 6px;
+    padding: 8px;
+    font-size: 0.6rem;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+  }
+
+  .app-list { margin-top: 1.75rem; display: flex; flex-direction: column; gap: 1.25rem; }
+  .app-list li { display: flex; gap: 1rem; align-items: flex-start; }
+  .app-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .app-list strong { display: block; font-size: 0.95rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .app-list p { font-size: 0.88rem; color: var(--silver); line-height: 1.6; }
+
+  /* ---- Testimonials ---- */
+  .testimonials {
+    background: var(--surface2);
+    padding: var(--section-pad);
+  }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .testi-card {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    transition: all var(--transition);
+  }
+  .testi-card:hover { border-color: var(--border-gold); transform: translateY(-3px); }
+
+  .stars { font-size: 0.85rem; margin-bottom: 1rem; }
+
+  .quote {
+    font-size: 0.95rem;
+    color: var(--silver);
+    line-height: 1.75;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+
+  .testi-author { display: flex; align-items: center; gap: 0.75rem; }
+  .avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--green));
+    color: var(--surface);
+    font-weight: 700;
+    font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .testi-author strong { display: block; font-size: 0.9rem; }
+  .testi-author span   { font-size: 0.8rem; color: var(--muted); }
+
+  /* ---- CTA Banner ---- */
+  .cta-banner {
+    background: linear-gradient(135deg, #0a1000 0%, #1a2800 50%, #080808 100%);
+    border-top: 1px solid rgba(45,90,39,0.4);
+    padding: var(--section-pad);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(200,150,12,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    position: relative;
+    flex-wrap: wrap;
+  }
+
+  .cta-text h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; margin-bottom: 0.5rem; }
+  .cta-text p  { color: var(--silver); font-size: 1rem; }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 1024px) {
+    .why-grid   { grid-template-columns: repeat(2, 1fr); }
+    .testi-grid { grid-template-columns: repeat(2, 1fr); }
+    .dream-inner, .app-inner { grid-template-columns: 1fr; gap: 3rem; }
+  }
+
+  @media (max-width: 768px) {
+    .stats-grid    { grid-template-columns: repeat(2, 1fr); }
+    .steps-grid    { grid-template-columns: 1fr; }
+    .step-arrow    { display: none; }
+    .gallery-grid  { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .gallery-item.large { grid-column: 1 / -1; }
+    .cta-inner     { flex-direction: column; text-align: center; }
+    .hero-headline { font-size: 2.4rem; }
+    .hero-trust    .sep { display: none; }
+    .hero-trust    { flex-direction: column; align-items: flex-start; gap: 0.3rem; }
+  }
+
+  @media (max-width: 480px) {
+    .gallery-grid  { grid-template-columns: 1fr; }
+    .testi-grid    { grid-template-columns: 1fr; }
+    .stats-grid    { grid-template-columns: repeat(2, 1fr); }
+    .why-grid      { grid-template-columns: 1fr; }
+  }
+</style>

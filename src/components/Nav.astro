@@ -1,0 +1,166 @@
+---
+const navLinks = [
+  { href: '/#why',          label: 'Why Teton' },
+  { href: '/#how-it-works', label: 'How It Works' },
+  { href: '/#gallery',      label: 'Gallery' },
+  { href: '/about',         label: 'About' },
+  { href: '/contact',       label: 'Contact' },
+];
+---
+
+<header class="nav-wrap" id="nav">
+  <div class="container nav-inner">
+
+    <a href="/" class="nav-logo" aria-label="Teton Exterior Lighting home">
+      <img src="/images/logo.png" alt="Teton Exterior Lighting" height="48" />
+    </a>
+
+    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+      {navLinks.map(l => (
+        <a href={l.href} class="nav-link">{l.label}</a>
+      ))}
+    </nav>
+
+    <div class="nav-right">
+      <a href="tel:+12085579009" class="nav-phone">(208) 557-9009</a>
+      <a href="/contact" class="btn btn-gold">Get Free Quote</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('navToggle')!;
+  const links  = document.getElementById('navLinks')!;
+  const nav    = document.getElementById('nav')!;
+
+  toggle.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.classList.toggle('active', open);
+  });
+
+  // Close on link click (mobile)
+  links.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => {
+      links.classList.remove('open');
+      toggle.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+    })
+  );
+
+  // Sticky scroll shadow
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+</script>
+
+<style>
+  .nav-wrap {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(8, 8, 8, 0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow 0.3s ease;
+  }
+  .nav-wrap.scrolled {
+    box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    gap: 2rem;
+  }
+
+  .nav-logo img {
+    height: 48px;
+    width: auto;
+    display: block;
+    object-fit: contain;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--silver);
+    transition: color var(--transition);
+    white-space: nowrap;
+  }
+  .nav-link:hover { color: var(--white); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .nav-phone {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--silver);
+    white-space: nowrap;
+    transition: color var(--transition);
+  }
+  .nav-phone:hover { color: var(--accent); }
+
+  /* Hamburger */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+  .nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 1024px) {
+    .nav-phone { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .nav-toggle { display: flex; }
+
+    .nav-links {
+      position: fixed;
+      top: 72px; left: 0; right: 0; bottom: 0;
+      background: var(--surface);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      transform: translateX(100%);
+      transition: transform 0.35s ease;
+      border-top: 1px solid var(--border);
+    }
+    .nav-links.open { transform: translateX(0); }
+    .nav-link { font-size: 1.3rem; color: var(--white); }
+  }
+</style>
