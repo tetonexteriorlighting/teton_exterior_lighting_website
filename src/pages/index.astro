@@ -255,18 +255,16 @@ import Footer from '../components/Footer.astro';
       </div>
       <div class="testi-grid">
         {[
-          { initial: 'J', name: 'Jason M.', location: 'Idaho Falls, ID', quote: 'I was skeptical at first, but after seeing our home lit up for Christmas I immediately told three neighbors. The individual LED control is unlike anything I\'ve seen — not even close to the DIY stuff.' },
-          { initial: 'S', name: 'Sarah K.', location: 'Ammon, ID',       quote: 'The app is genuinely easy. I set the schedule once and the lights come on every evening automatically. My kids love picking new presets for every holiday. Best investment we\'ve made.' },
-          { initial: 'R', name: 'Ryan T.', location: 'Pocatello, ID',    quote: 'The installation team was in and out so fast and left zero mess. You\'d never know the hardware was there during the day. Night comes and it\'s a total transformation.' },
+          { initial: 'M', name: 'Mantis Sebastian', stars: '⭐⭐⭐⭐⭐', quote: 'Teton Exterior Lighting did an outstanding job on our home. The permanent lighting system they installed looks clean, professional, and completely transformed the exterior. The track is low-profile and blends in perfectly with the house, so it doesn\'t look bulky or out of place at all. What really sets it apart is the app controlled setup. It\'s incredibly easy to use and gives you full control over colors, brightness, and scheduling. Whether it\'s holidays or just everyday accent lighting, you can change everything instantly from your phone.' },
+          { initial: 'M', name: 'Mark Bodily', stars: '⭐⭐⭐⭐⭐', quote: 'Awesome lighting. Service is top notch! They have a great product and are extremely knowledgeable and customer oriented. Jayden was terrific to work with. I highly recommend!!!' },
         ].map(t => (
           <div class="testi-card reveal">
-            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <div class="stars">{t.stars}</div>
             <p class="quote">"{t.quote}"</p>
             <div class="testi-author">
               <div class="avatar">{t.initial}</div>
               <div>
                 <strong>{t.name}</strong>
-                <span>{t.location}</span>
               </div>
             </div>
           </div>
