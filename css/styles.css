@@ -249,7 +249,7 @@ img { max-width: 100%; display: block; }
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(8,12,24,0.7) 0%, rgba(8,12,24,0.3) 100%);
+  background: linear-gradient(135deg, rgba(8,12,24,0.82) 0%, rgba(8,12,24,0.45) 100%);
 }
 
 .hero-content {
@@ -382,75 +382,13 @@ img { max-width: 100%; display: block; }
 .ch-text .section-title { color: var(--text); }
 .ch-text .section-title em { font-style: italic; color: var(--gold); }
 
-/* ---- Image Placeholders ---- */
-.image-placeholder {
+/* ---- Section photos ---- */
+.section-photo {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
   border-radius: var(--radius-lg);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 380px;
-  text-align: center;
-  padding: 2rem;
-  position: relative;
-}
-
-.glow-image {
-  background: linear-gradient(135deg, #0a1628 0%, #1a3a6e 50%, #0a0e18 100%);
-  box-shadow: 0 20px 60px rgba(74,144,226,0.25), inset 0 0 60px rgba(74,144,226,0.1);
-}
-
-.co-placeholder {
-  background: linear-gradient(135deg, #1a2744 0%, #0f1628 100%);
-  box-shadow: 0 20px 60px rgba(245,166,35,0.15);
-}
-
-.placeholder-note {
-  color: rgba(255,255,255,0.4);
-  font-size: 0.85rem;
-  margin-top: 1rem;
-}
-
-/* House illustration */
-.house-illustration {
-  position: relative;
-  width: 200px;
-  height: 180px;
-}
-.house-roof {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 70px;
-  background: linear-gradient(135deg, #2a3a6e, #1a2a5e);
-  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-}
-.house-body {
-  position: absolute;
-  bottom: 0; left: 20px; right: 20px;
-  height: 120px;
-  background: #1a2744;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 0 10px;
-}
-.house-window {
-  width: 30px; height: 35px;
-  background: linear-gradient(135deg, var(--gold), var(--gold-light));
-  border-radius: 4px;
-  box-shadow: 0 0 20px rgba(245,166,35,0.8);
-  animation: windowGlow 2s ease-in-out infinite alternate;
-}
-@keyframes windowGlow {
-  from { box-shadow: 0 0 10px rgba(245,166,35,0.6); }
-  to   { box-shadow: 0 0 30px rgba(245,166,35,1); }
-}
-.house-door {
-  width: 24px; height: 45px;
-  background: #2a3a6e;
-  border-radius: 4px 4px 0 0;
-  align-self: flex-end;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.22);
 }
 
 /* =============================================
@@ -740,9 +678,17 @@ img { max-width: 100%; display: block; }
   justify-content: center;
   transition: transform var(--transition);
   cursor: pointer;
+  background: var(--dark-2);
 }
 .gallery-item:hover { transform: scale(1.02); }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.gallery-item:hover img { transform: scale(1.06); }
 
 .gallery-large { grid-column: span 2; }
 
