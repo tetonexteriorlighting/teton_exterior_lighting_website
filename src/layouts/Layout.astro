@@ -10,7 +10,7 @@ interface Props {
 
 const {
   title,
-  description = 'Teton Exterior Lighting installs permanent LED lighting for homes in Idaho Falls and Southeast Idaho. 3× brighter than DIY, 20–30 year lifespan, fully app-controlled.',
+  description = 'Teton Exterior Lighting installs permanent LED lighting for homes across Idaho Falls, Jackson Hole, Salt Lake City, Boise, and anywhere within a 4-hour radius. 3× brighter than DIY, 20–30 year lifespan, fully app-controlled.',
   ogImage = '/images/og-image.jpg',
   noindex = false,
 } = Astro.props;
@@ -21,7 +21,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: 'Teton Exterior Lighting',
-  description: 'Permanent LED exterior lighting installation for homes in Idaho Falls and Southeast Idaho.',
+  description: 'Permanent LED exterior lighting installation based in Idaho Falls, ID. Serving Southeast Idaho, Jackson Hole WY, Salt Lake City UT, Boise ID, and all areas within a 4-hour radius.',
   telephone: '+12085579009',
   address: {
     '@type': 'PostalAddress',
@@ -29,10 +29,15 @@ const jsonLd = {
     addressRegion: 'ID',
     addressCountry: 'US',
   },
-  areaServed: {
-    '@type': 'State',
-    name: 'Southeast Idaho',
-  },
+  areaServed: [
+    { '@type': 'City', name: 'Idaho Falls', containedInPlace: { '@type': 'State', name: 'Idaho' } },
+    { '@type': 'City', name: 'Jackson Hole', containedInPlace: { '@type': 'State', name: 'Wyoming' } },
+    { '@type': 'City', name: 'Salt Lake City', containedInPlace: { '@type': 'State', name: 'Utah' } },
+    { '@type': 'City', name: 'Boise', containedInPlace: { '@type': 'State', name: 'Idaho' } },
+    { '@type': 'City', name: 'Pocatello', containedInPlace: { '@type': 'State', name: 'Idaho' } },
+    { '@type': 'City', name: 'Rexburg', containedInPlace: { '@type': 'State', name: 'Idaho' } },
+    { '@type': 'City', name: 'Twin Falls', containedInPlace: { '@type': 'State', name: 'Idaho' } },
+  ],
   url: 'https://tetonexteriorlighting.com',
   image: 'https://tetonexteriorlighting.com/images/logo.png',
   sameAs: [
