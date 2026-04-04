@@ -32,9 +32,11 @@ import Footer from '../components/Footer.astro';
       <div class="hero-trust">
         <span>⭐⭐⭐⭐⭐ 5-Star Rated</span>
         <span class="sep">|</span>
-        <span>20–30 Year Lifespan</span>
+        <span>ShowHome Certified</span>
         <span class="sep">|</span>
-        <span>3× Brighter Than DIY</span>
+        <span>5-Year Warranty</span>
+        <span class="sep">|</span>
+        <span>Financing Available</span>
       </div>
     </div>
   </section>
@@ -94,15 +96,15 @@ import Footer from '../components/Footer.astro';
         <div class="gold-rule center"></div>
         <h2 class="section-title" style="text-align:center">Not All Permanent Lighting<br />Is Created Equal</h2>
         <p class="section-body center" style="margin-top:0.5rem">
-          Here's why homeowners across Idaho Falls, Jackson Hole, Salt Lake City, Boise, and beyond choose Teton over the alternatives.
+          As a certified ShowHome partner, here's why homeowners across Idaho Falls, Jackson Hole, Salt Lake City, Boise, and beyond choose Teton over the alternatives.
         </p>
       </div>
 
       <div class="why-grid">
         {[
-          { icon: '💡', title: '3× the Brightness',        body: 'Our commercial-grade tracks deliver three times the light output of typical DIY systems. The difference is visible from a block away — every single time.' },
+          { icon: '💡', title: '3× the Brightness',        body: 'Our ShowHome commercial-grade tracks deliver three times the light output of typical DIY systems. The difference is visible from a block away — every single time.' },
           { icon: '🎯', title: 'Individual LED Control',   body: 'Every single bulb is individually addressable. While others control large zones, we unlock stunning chasing effects and precision patterns they simply cannot match.' },
-          { icon: '⏳', title: '20–30 Year Lifespan',      body: 'This is a one-time investment. Our LED tracks outlast the next two to three decades of holiday seasons so you never deal with this problem again.' },
+          { icon: '🛡', title: '5-Year Warranty',          body: 'Every installation is backed by a 5-year product warranty. And with a 20–30 year expected lifespan, ShowHome LEDs are a true once-in-a-generation purchase.' },
           { icon: '🏠', title: 'Invisible by Day',         body: 'The controller hides under your soffit. The slim track color-matches your trim. No one knows it\'s there — until night falls and the show begins.' },
           { icon: '🔧', title: 'We Handle Everything',     body: "We don't touch your home's electrical panel. Our team manages the full install, and if anything ever goes wrong, we fix it. Period." },
           { icon: '📱', title: 'Set-It-and-Forget-It App', body: 'Schedule lights to come on at sunset and off at midnight automatically. Great light for you, respectful to your neighbors. Built-in good neighbor etiquette.' },
@@ -113,6 +115,40 @@ import Footer from '../components/Footer.astro';
             <p>{c.body}</p>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       TRUST BADGES STRIP
+  =================================================== -->
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-badges">
+        <div class="trust-badge">
+          <span class="badge-icon">✦</span>
+          <span>ShowHome Certified Partner</span>
+        </div>
+        <div class="badge-sep"></div>
+        <div class="trust-badge">
+          <span class="badge-icon">🛡</span>
+          <span>5-Year Product Warranty</span>
+        </div>
+        <div class="badge-sep"></div>
+        <div class="trust-badge">
+          <span class="badge-icon">✔</span>
+          <span>Fully Licensed &amp; Insured</span>
+        </div>
+        <div class="badge-sep"></div>
+        <div class="trust-badge">
+          <span class="badge-icon">⚡</span>
+          <span>UL Listed Components</span>
+        </div>
+        <div class="badge-sep"></div>
+        <div class="trust-badge">
+          <span class="badge-icon">💳</span>
+          <span>Financing Available</span>
+        </div>
       </div>
     </div>
   </section>
@@ -209,6 +245,33 @@ import Footer from '../components/Footer.astro';
   </section>
 
   <!-- ===================================================
+       SHOWHOME TECHNOLOGY VIDEO
+  =================================================== -->
+  <section class="showhome-section" id="technology">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow center">The Technology</span>
+        <div class="gold-rule center"></div>
+        <h2 class="section-title" style="text-align:center">Meet ShowHome — The Brand<br />Behind the Magic</h2>
+        <p class="section-body center" style="margin-top:0.5rem">
+          We're a certified ShowHome partner. That means you get commercial-grade LEDs engineered
+          for 20–30 years, 16+ million colors, individually addressable control, and a 5-year product
+          warranty — all installed right here by your neighbors in Idaho Falls.
+        </p>
+      </div>
+      <div class="video-wrap reveal">
+        <iframe
+          src="https://www.youtube.com/embed/lvFXkXmk5A0"
+          title="ShowHome Permanent LED Lighting Technology Demo"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
        APP SECTION
   =================================================== -->
   <section class="app-section" id="app">
@@ -294,7 +357,7 @@ import Footer from '../components/Footer.astro';
     <div class="container cta-inner reveal">
       <div class="cta-text">
         <h2>Ready to Transform Your Home?</h2>
-        <p>Most quotes take less than 30 minutes. No obligation. No pressure. Just a conversation about your home.</p>
+        <p>Most quotes take less than 30 minutes. No obligation. No pressure. Financing available — just a conversation about your home.</p>
       </div>
       <a href="/contact" class="btn btn-gold btn-lg">Get My Free Quote →</a>
     </div>
@@ -556,6 +619,73 @@ import Footer from '../components/Footer.astro';
   }
   .gallery-item:hover img,
   .gallery-item:hover video { transform: scale(1.05); }
+
+  /* ---- Trust Badges Strip ---- */
+  .trust-strip {
+    background: var(--surface2);
+    border-top: 1px solid var(--border-gold);
+    border-bottom: 1px solid var(--border);
+    padding: 1.75rem 0;
+  }
+
+  .trust-badges {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem 0;
+  }
+
+  .trust-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--silver);
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+  }
+
+  .badge-icon {
+    color: var(--accent);
+    font-size: 0.85rem;
+  }
+
+  .badge-sep {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  /* ---- ShowHome Video ---- */
+  .showhome-section {
+    background: var(--surface2);
+    padding: var(--section-pad);
+  }
+
+  .video-wrap {
+    margin-top: 3rem;
+    position: relative;
+    width: 100%;
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px var(--border-gold);
+    aspect-ratio: 16 / 9;
+  }
+
+  .video-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
 
   /* ---- App Section ---- */
   .app-section {
