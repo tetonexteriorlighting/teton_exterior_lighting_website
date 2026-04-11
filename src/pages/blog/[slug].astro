@@ -1,0 +1,330 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav    from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map(post => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  dateModified: (post.data.updatedDate ?? post.data.pubDate).toISOString(),
+  author: {
+    '@type': 'Organization',
+    name: 'Teton Exterior Lighting',
+    url: 'https://tetonexteriorlighting.com',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Teton Exterior Lighting',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://tetonexteriorlighting.com/images/logo.png',
+    },
+  },
+  image: post.data.heroImage
+    ? new URL(post.data.heroImage, 'https://tetonexteriorlighting.com').toString()
+    : 'https://tetonexteriorlighting.com/images/og-image.jpg',
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': new URL(`/blog/${post.slug}`, 'https://tetonexteriorlighting.com').toString(),
+  },
+};
+---
+
+<Layout
+  title={`${post.data.title} | Teton Exterior Lighting`}
+  description={post.data.description}
+  ogImage={post.data.heroImage || '/images/og-image.jpg'}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} slot="head" />
+  <Nav />
+
+  <!-- Hero -->
+  {post.data.heroImage && (
+    <div class="post-hero-img">
+      <img src={post.data.heroImage} alt={post.data.heroAlt || post.data.title} />
+    </div>
+  )}
+
+  <article class="post-article">
+    <div class="container post-container">
+
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Home</a>
+        <span>/</span>
+        <a href="/blog">Blog</a>
+        <span>/</span>
+        <span>{post.data.title}</span>
+      </nav>
+
+      <!-- Meta -->
+      <div class="post-meta">
+        <time datetime={post.data.pubDate.toISOString()}>
+          {formatDate(post.data.pubDate)}
+        </time>
+        <span class="meta-sep">·</span>
+        <span>Teton Exterior Lighting</span>
+        {post.data.tags.map(tag => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+
+      <!-- Content -->
+      <div class="prose">
+        <Content />
+      </div>
+
+      <!-- Tags -->
+      {post.data.tags.length > 0 && (
+        <div class="post-tags">
+          {post.data.tags.map(tag => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      )}
+
+    </div>
+  </article>
+
+  <!-- CTA Banner -->
+  <section class="post-cta">
+    <div class="container post-cta-inner">
+      <div>
+        <h2>Ready to Light Up Your Home?</h2>
+        <p>Free quote. No obligation. We serve Idaho Falls, Jackson Hole, Salt Lake City, Boise, and the Intermountain region.</p>
+      </div>
+      <a href="/contact" class="btn btn-gold btn-lg">Get My Free Quote →</a>
+    </div>
+  </section>
+
+  <!-- Back to blog -->
+  <div class="back-link">
+    <div class="container">
+      <a href="/blog">← Back to all articles</a>
+    </div>
+  </div>
+
+  <Footer />
+</Layout>
+
+<style>
+  .post-hero-img {
+    width: 100%;
+    max-height: 480px;
+    overflow: hidden;
+    margin-top: 112px;
+  }
+  .post-hero-img img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+  }
+
+  .post-article {
+    background: var(--surface);
+    padding: 60px 0 80px;
+  }
+
+  .post-container {
+    max-width: 780px;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+  .breadcrumb a { color: var(--muted); transition: color var(--transition); }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span:not(:last-child) { opacity: 0.5; }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-bottom: 2.5rem;
+  }
+  .meta-sep { opacity: 0.4; }
+  .tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    background: rgba(240,192,0,0.1);
+    border: 1px solid rgba(240,192,0,0.2);
+    border-radius: 4px;
+    padding: 2px 8px;
+  }
+
+  /* ---- Prose styles for Markdown content ---- */
+  .prose {
+    color: var(--silver);
+    line-height: 1.85;
+    font-size: 1.05rem;
+  }
+
+  .prose :global(h1) {
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  .prose :global(h2) {
+    font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+    font-weight: 700;
+    color: var(--white);
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .prose :global(h3) {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose :global(p) {
+    margin-bottom: 1.35rem;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1.35rem;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 0.5rem;
+    list-style: disc;
+  }
+
+  .prose :global(ol li) { list-style: decimal; }
+
+  .prose :global(strong) {
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .prose :global(a) {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color var(--transition);
+  }
+  .prose :global(a:hover) { color: var(--accent-bright); }
+
+  .prose :global(blockquote) {
+    border-left: 3px solid var(--accent);
+    padding-left: 1.25rem;
+    margin: 2rem 0;
+    color: var(--silver);
+    font-style: italic;
+  }
+
+  .prose :global(img) {
+    width: 100%;
+    border-radius: var(--radius);
+    margin: 2rem 0;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+
+  .prose :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
+
+  .prose :global(code) {
+    background: var(--surface3);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    color: var(--accent);
+  }
+
+  .post-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* ---- CTA Banner ---- */
+  .post-cta {
+    background: linear-gradient(135deg, #0a1000 0%, #1a2800 50%, #080808 100%);
+    border-top: 1px solid rgba(45,90,39,0.4);
+    padding: var(--section-pad);
+    position: relative;
+    overflow: hidden;
+  }
+  .post-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(200,150,12,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .post-cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .post-cta h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 900; margin-bottom: 0.5rem; }
+  .post-cta p  { color: var(--silver); font-size: 0.95rem; }
+
+  .back-link {
+    background: var(--surface2);
+    border-top: 1px solid var(--border);
+    padding: 1.25rem 0;
+  }
+  .back-link a {
+    font-size: 0.88rem;
+    color: var(--muted);
+    transition: color var(--transition);
+  }
+  .back-link a:hover { color: var(--accent); }
+
+  /* When there's no hero image, add top padding to compensate for nav */
+  .post-article:first-of-type {
+    padding-top: calc(112px + 60px);
+  }
+
+  @media (max-width: 768px) {
+    .post-cta-inner { flex-direction: column; text-align: center; }
+    .post-hero-img, .post-hero-img img { max-height: 280px; height: 280px; }
+  }
+</style>

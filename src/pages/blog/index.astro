@@ -1,0 +1,206 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav    from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+---
+
+<Layout
+  title="Outdoor Lighting Blog | Teton Exterior Lighting | Idaho Falls, ID"
+  description="Expert tips, seasonal ideas, and inspiration for permanent LED exterior lighting in Idaho Falls and the Intermountain West."
+>
+  <Nav />
+
+  <section class="blog-hero">
+    <div class="container">
+      <span class="eyebrow">Lighting Tips & Ideas</span>
+      <div class="gold-rule"></div>
+      <h1 class="section-title">The Permanent Lighting Blog</h1>
+      <p class="section-body">
+        Seasonal ideas, installation tips, and inspiration for homeowners across Idaho Falls,
+        Jackson Hole, Salt Lake City, and the wider Intermountain region.
+      </p>
+    </div>
+  </section>
+
+  <section class="blog-list">
+    <div class="container">
+      {posts.length === 0 ? (
+        <p class="no-posts">No posts yet. Check back soon!</p>
+      ) : (
+        <div class="posts-grid">
+          {posts.map(post => (
+            <article class="post-card reveal">
+              {post.data.heroImage && (
+                <a href={`/blog/${post.slug}`} class="post-thumb">
+                  <img
+                    src={post.data.heroImage}
+                    alt={post.data.heroAlt || post.data.title}
+                    loading="lazy"
+                  />
+                </a>
+              )}
+              <div class="post-body">
+                <div class="post-meta">
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {formatDate(post.data.pubDate)}
+                  </time>
+                  {post.data.tags.slice(0, 2).map(tag => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+                <h2 class="post-title">
+                  <a href={`/blog/${post.slug}`}>{post.data.title}</a>
+                </h2>
+                <p class="post-excerpt">{post.data.description}</p>
+                <a href={`/blog/${post.slug}`} class="read-more">Read Article →</a>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+
+      <div class="blog-cta reveal">
+        <p>Ready to light up your home?</p>
+        <a href="/contact" class="btn btn-gold btn-lg">Get My Free Quote →</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  .blog-hero {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    padding: 140px 0 80px;
+  }
+  .blog-hero .section-body { margin-top: 0.75rem; }
+
+  .blog-list {
+    background: var(--surface);
+    padding: var(--section-pad);
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .post-card {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all var(--transition);
+  }
+  .post-card:hover {
+    border-color: var(--border-gold);
+    transform: translateY(-4px);
+  }
+
+  .post-thumb {
+    display: block;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+  .post-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .post-card:hover .post-thumb img { transform: scale(1.05); }
+
+  .post-body {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.9rem;
+  }
+  .post-meta time {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    background: rgba(240,192,0,0.1);
+    border: 1px solid rgba(240,192,0,0.2);
+    border-radius: 4px;
+    padding: 2px 8px;
+  }
+
+  .post-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 0.75rem;
+  }
+  .post-title a { color: var(--white); transition: color var(--transition); }
+  .post-title a:hover { color: var(--accent); }
+
+  .post-excerpt {
+    font-size: 0.88rem;
+    color: var(--silver);
+    line-height: 1.7;
+    flex: 1;
+    margin-bottom: 1.25rem;
+  }
+
+  .read-more {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    transition: color var(--transition);
+    align-self: flex-start;
+  }
+  .read-more:hover { color: var(--accent-bright); }
+
+  .no-posts {
+    text-align: center;
+    color: var(--muted);
+    padding: 4rem 0;
+    font-size: 1rem;
+  }
+
+  .blog-cta {
+    margin-top: 5rem;
+    text-align: center;
+  }
+  .blog-cta p {
+    font-size: 1.1rem;
+    color: var(--silver);
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 1024px) {
+    .posts-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .posts-grid { grid-template-columns: 1fr; }
+  }
+</style>
