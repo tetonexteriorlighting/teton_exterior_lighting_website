@@ -38,15 +38,23 @@ function formatDate(date: Date) {
         <div class="posts-grid">
           {posts.map(post => (
             <article class="post-card reveal">
-              {post.data.heroImage && (
-                <a href={`/blog/${post.slug}`} class="post-thumb">
+              <a href={`/blog/${post.slug}`} class={`post-thumb ${!post.data.heroImage ? 'post-thumb-placeholder' : ''}`}>
+                {post.data.heroImage ? (
                   <img
                     src={post.data.heroImage}
                     alt={post.data.heroAlt || post.data.title}
                     loading="lazy"
                   />
-                </a>
-              )}
+                ) : (
+                  <div class="thumb-placeholder-inner">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M12 3a9 9 0 1 1 0 18A9 9 0 0 1 12 3z"/>
+                      <path d="M12 8v4l3 3"/>
+                    </svg>
+                    <span>Teton Exterior Lighting</span>
+                  </div>
+                )}
+              </a>
               <div class="post-body">
                 <div class="post-meta">
                   <time datetime={post.data.pubDate.toISOString()}>
@@ -122,6 +130,29 @@ function formatDate(date: Date) {
     transition: transform 0.5s ease;
   }
   .post-card:hover .post-thumb img { transform: scale(1.05); }
+
+  .post-thumb-placeholder {
+    background: linear-gradient(135deg, #0d1a08 0%, #1a2e10 50%, #0a1200 100%);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .thumb-placeholder-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    color: rgba(240,192,0,0.35);
+    pointer-events: none;
+  }
+  .thumb-placeholder-inner span {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(240,192,0,0.3);
+  }
 
   .post-body {
     padding: 1.75rem;

@@ -3,6 +3,8 @@ title: "Permanent LED Lighting in Idaho Falls: Your Spring Curb Appeal Guide"
 description: "Discover how permanent LED exterior lighting transforms Idaho Falls homes this spring. ShowHome certified, app-controlled, and built to last 20-30 years."
 pubDate: "2026-04-11"
 tags: ["permanent led lighting", "idaho falls", "outdoor lighting", "spring curb appeal", "showHome lighting"]
+heroImage: "/images/tel-house-colorful-wide.jpg"
+heroAlt: "Idaho Falls home lit with colorful permanent LED lighting by Teton Exterior Lighting"
 draft: false
 ---
 
@@ -16,7 +18,7 @@ If you've been thinking about ditching the seasonal light-hanging routine, sprin
 
 Installing permanent LED lighting in spring gives you the whole year to enjoy it. You'll have warm white accent lighting through the long summer evenings, full-color displays ready for the Fourth of July, and everything dialed in well before the holiday rush hits in November.
 
-It's also easier on the installers. Our team can work comfortably, and your roofline isn't buried under snow and ice. Most residential installs in the Idaho Falls area are done in a single day, and you're ready to light up that same evening.
+It's also easier on the installers. Our team can work comfortably, and your roofline isn't buried under snow and ice.
 
 ## What Makes ShowHome Lighting Different
 
@@ -39,18 +41,16 @@ The great thing about permanent LEDs is that every season calls for something di
 
 **Mother's Day and graduation displays.** Custom colors and simple chasing effects let you mark life events without buying a single extra decoration.
 
-## How Much Does It Cost?
+## Is It Worth the Investment?
 
-Pricing depends on your home's linear footage of roofline. Most single-story homes in Idaho Falls run between $1,500 and $3,000 installed. Two-story homes with more complex rooflines typically range from $2,500 to $5,000.
-
-That's a one-time investment for 20 to 30 years of use. Compared to buying, storing, hanging, and replacing traditional lights every season, most homeowners find it pays for itself in a few years, plus all the time and hassle it saves.
+Permanent LED lighting is a one-time upgrade that lasts 20 to 30 years. Compared to buying, storing, hanging, and replacing traditional lights every season, most homeowners find it pays for itself over time, plus all the time and hassle it saves.
 
 We offer financing options, so you don't have to pay the full amount upfront. Ask us about it when you [get a free quote](/contact).
 
 ## Frequently Asked Questions
 
-**Q: How long does installation take?**
-Most residential installs are completed in a single day. We measure your roofline during the quote, order your track, and schedule install day once materials arrive. From quote to lit-up home is usually one to two weeks.
+**Q: How long does the process take?**
+We measure your roofline during the quote, order your track, and schedule the install once materials arrive. From quote to lit-up home is usually a few weeks.
 
 **Q: Do the lights work in snow and cold?**
 Yes. ShowHome LED systems are designed for outdoor use in all seasons, including Idaho's harsh winters. The track is weatherproofed and tested for extreme temperatures. Ice and snow don't affect performance.
