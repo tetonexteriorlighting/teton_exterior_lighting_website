@@ -8,7 +8,8 @@
     "preview": "astro preview",
     "seo-pipeline": "node scripts/run-pipeline.mjs",
     "generate-post": "node scripts/generate-post.mjs",
-    "process-photos": "node scripts/process-photos.mjs"
+    "process-photos": "node scripts/process-photos.mjs",
+    "build-tools": "node scripts/build-tools.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.55.1",

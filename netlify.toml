@@ -5,6 +5,13 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# RoofLit installer tool (SPA — all sub-paths serve its own index.html)
+[[redirects]]
+  from   = "/tools/app/*"
+  to     = "/tools/app/index.html"
+  status = 200
+
+# Main site SPA fallback
 [[redirects]]
   from   = "/*"
   to     = "/index.html"
