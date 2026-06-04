@@ -1,0 +1,747 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav    from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Lighting Animations & Effects | Teton Exterior Lighting | Idaho Falls"
+  description="Browse all 153 ShowHome app animations available with your permanent LED lighting system — from subtle warm glows to full holiday displays. All app-controlled from your phone."
+>
+  <Nav />
+
+  <!-- ===================================================
+       HERO
+  =================================================== -->
+  <section class="anim-hero">
+    <div class="container">
+      <span class="eyebrow center">App-Controlled Effects</span>
+      <div class="gold-rule center"></div>
+      <h1 class="section-title" style="text-align:center">Lighting Animation Library</h1>
+      <p class="section-body" style="text-align:center;max-width:660px;margin:0.75rem auto 0">
+        Every effect built into the ShowHome controller — right on your phone. Browse all 153 lighting
+        animations, from quiet warm glows to full holiday displays. Your home, your mood, your moment.
+      </p>
+      <div class="hero-chips">
+        <span class="chip chip-motion">40 Motion</span>
+        <span class="chip chip-color">22 Color</span>
+        <span class="chip chip-seasonal">22 Seasonal</span>
+        <span class="chip chip-advanced">69 Advanced</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       CONTROLS
+  =================================================== -->
+  <section class="controls-section">
+    <div class="container">
+      <div class="controls-row">
+        <div class="filter-tabs" id="filterTabs">
+          <button class="filter-btn active" data-filter="all">All <span class="fbadge">153</span></button>
+          <button class="filter-btn" data-filter="MOTION">Motion <span class="fbadge">40</span></button>
+          <button class="filter-btn" data-filter="COLOR">Color <span class="fbadge">22</span></button>
+          <button class="filter-btn" data-filter="SEASONAL">Seasonal <span class="fbadge">22</span></button>
+          <button class="filter-btn" data-filter="ADVANCED">Advanced <span class="fbadge">69</span></button>
+        </div>
+        <input type="search" id="fxSearch" class="fx-search" placeholder="Search effects…" autocomplete="off" />
+      </div>
+      <p class="results-line"><span id="visibleCount">153</span> effects shown</p>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       GRID
+  =================================================== -->
+  <section class="grid-section">
+    <div class="container">
+      <div id="effectsGrid" class="effects-grid"></div>
+      <p id="noResults" class="no-results" style="display:none">No effects match your search.</p>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       CTA
+  =================================================== -->
+  <section class="anim-cta">
+    <div class="container anim-cta-inner">
+      <div>
+        <h2>All 153 Effects. One App.</h2>
+        <p>Change your home's look in seconds from anywhere in the world. Get your permanent LED system installed today.</p>
+      </div>
+      <a href="/contact" class="btn btn-gold btn-lg">Get My Free Quote →</a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<!-- =========================================================
+     JAVASCRIPT — data + canvas animation engine
+========================================================= -->
+<script>
+// ─── Effect data ─────────────────────────────────────────────
+const EFFECTS = [
+  {id:0,  cat:'COLOR',    name:'Solid 1',            params:'Size'},
+  {id:1,  cat:'ADVANCED', name:'Blink',               params:'Speed, Duty cycle'},
+  {id:2,  cat:'ADVANCED', name:'Breathe',             params:'Speed'},
+  {id:3,  cat:'MOTION',   name:'Wipe',                params:'Speed, Intensity'},
+  {id:4,  cat:'MOTION',   name:'Wipe Random',         params:'Speed'},
+  {id:5,  cat:'COLOR',    name:'Random Colors',       params:'Speed, Fade time'},
+  {id:6,  cat:'MOTION',   name:'Sweep',               params:'Speed, Intensity'},
+  {id:7,  cat:'ADVANCED', name:'Dynamic',             params:'Speed, Intensity, Smooth'},
+  {id:8,  cat:'COLOR',    name:'Colorloop',           params:'Speed, Saturation'},
+  {id:9,  cat:'SEASONAL', name:'Rainbow',             params:'Speed, Size'},
+  {id:10, cat:'MOTION',   name:'Scan',                params:'Speed, # of dots, Overlay'},
+  {id:11, cat:'MOTION',   name:'Scan Dual',           params:'Speed, # of dots, Overlay'},
+  {id:12, cat:'COLOR',    name:'Fade',                params:'Speed'},
+  {id:13, cat:'MOTION',   name:'Theater',             params:'Speed, Gap size'},
+  {id:14, cat:'SEASONAL', name:'Theater Rainbow',     params:'Speed, Gap size'},
+  {id:15, cat:'MOTION',   name:'Running',             params:'Speed, Wave width'},
+  {id:16, cat:'ADVANCED', name:'Saw',                 params:'Speed, Width'},
+  {id:17, cat:'ADVANCED', name:'Twinkle',             params:'Speed, Intensity'},
+  {id:18, cat:'ADVANCED', name:'Dissolve',            params:'Repeat speed, Dissolve speed, Random'},
+  {id:19, cat:'ADVANCED', name:'Dissolve Rnd',        params:'Repeat speed, Dissolve speed'},
+  {id:20, cat:'ADVANCED', name:'Sparkle',             params:'Speed, Overlay'},
+  {id:21, cat:'ADVANCED', name:'Sparkle Dark',        params:'Speed, Intensity, Overlay'},
+  {id:22, cat:'ADVANCED', name:'Sparkle+',            params:'Speed, Intensity, Overlay'},
+  {id:23, cat:'ADVANCED', name:'Strobe',              params:'Speed'},
+  {id:24, cat:'SEASONAL', name:'Strobe Rainbow',      params:'Speed'},
+  {id:25, cat:'ADVANCED', name:'Strobe Mega',         params:'Speed, Intensity'},
+  {id:26, cat:'SEASONAL', name:'Blink Rainbow',       params:'Frequency, Blink duration'},
+  {id:27, cat:'ADVANCED', name:'Android',             params:'Speed, Width'},
+  {id:28, cat:'MOTION',   name:'Chase',               params:'Speed, Width'},
+  {id:29, cat:'MOTION',   name:'Chase Random',        params:'Speed, Width'},
+  {id:30, cat:'SEASONAL', name:'Chase Rainbow',       params:'Speed, Width'},
+  {id:31, cat:'MOTION',   name:'Chase Flash',         params:'Speed'},
+  {id:32, cat:'MOTION',   name:'Chase Flash Rnd',     params:'Speed'},
+  {id:33, cat:'SEASONAL', name:'Rainbow Runner',      params:'Speed, Size'},
+  {id:34, cat:'COLOR',    name:'Colorful',            params:'Speed, Saturation'},
+  {id:35, cat:'SEASONAL', name:'Traffic Light',       params:'Speed, US style'},
+  {id:36, cat:'MOTION',   name:'Sweep Random',        params:'Speed'},
+  {id:37, cat:'MOTION',   name:'Chase 2',             params:'Speed, Width'},
+  {id:38, cat:'COLOR',    name:'Aurora',              params:'Speed, Intensity'},
+  {id:39, cat:'MOTION',   name:'Stream',              params:'Speed, Zone size'},
+  {id:40, cat:'MOTION',   name:'Scanner',             params:'Speed, Fade rate'},
+  {id:41, cat:'ADVANCED', name:'Lighthouse',          params:'Speed, Fade rate'},
+  {id:42, cat:'SEASONAL', name:'Fireworks',           params:'Frequency'},
+  {id:43, cat:'SEASONAL', name:'Rain',                params:'Speed, Spawning rate'},
+  {id:44, cat:'SEASONAL', name:'Tetrix',              params:'Speed, Width, One color'},
+  {id:45, cat:'SEASONAL', name:'Fire Flicker',        params:'Speed, Intensity'},
+  {id:46, cat:'COLOR',    name:'Gradient',            params:'Speed, Spread'},
+  {id:47, cat:'ADVANCED', name:'Loading',             params:'Speed, Fade'},
+  {id:48, cat:'ADVANCED', name:'Rolling Balls',       params:'Speed, # of balls, Collisions'},
+  {id:49, cat:'ADVANCED', name:'Fairy',               params:'Speed, # of flashers'},
+  {id:50, cat:'ADVANCED', name:'Two Dots',            params:'Speed, Dot size, Overlay'},
+  {id:51, cat:'ADVANCED', name:'Fairytwinkle',        params:'Speed, Intensity'},
+  {id:52, cat:'MOTION',   name:'Running Dual',        params:'Speed, Wave width'},
+  {id:54, cat:'MOTION',   name:'Chase 3',             params:'Speed, Size'},
+  {id:55, cat:'MOTION',   name:'Tri Wipe',            params:'Speed'},
+  {id:56, cat:'COLOR',    name:'Tri Fade',            params:'Speed'},
+  {id:57, cat:'SEASONAL', name:'Lightning',           params:'Speed, Intensity, Overlay'},
+  {id:58, cat:'ADVANCED', name:'ICU',                 params:'Speed, Intensity, Overlay'},
+  {id:59, cat:'ADVANCED', name:'Multi Comet',         params:'Multi Comet'},
+  {id:60, cat:'MOTION',   name:'Scanner Dual',        params:'Speed, Fade rate'},
+  {id:61, cat:'MOTION',   name:'Stream 2',            params:'Speed'},
+  {id:62, cat:'MOTION',   name:'Oscillate',           params:'Oscillate'},
+  {id:63, cat:'ADVANCED', name:'Pride 2015',          params:'Speed'},
+  {id:64, cat:'MOTION',   name:'Juggle',              params:'Speed, Trail'},
+  {id:65, cat:'COLOR',    name:'Palette',             params:'Cycle speed'},
+  {id:66, cat:'SEASONAL', name:'Fire 2012',           params:'Cooling, Spark rate, Boost'},
+  {id:67, cat:'COLOR',    name:'Colorwaves',          params:'Speed, Hue'},
+  {id:68, cat:'ADVANCED', name:'Bpm',                 params:'Speed'},
+  {id:69, cat:'ADVANCED', name:'Fill Noise',          params:'Speed'},
+  {id:70, cat:'ADVANCED', name:'Noise 1',             params:'Speed'},
+  {id:71, cat:'ADVANCED', name:'Noise 2',             params:'Speed'},
+  {id:72, cat:'ADVANCED', name:'Noise 3',             params:'Speed'},
+  {id:73, cat:'ADVANCED', name:'Noise 4',             params:'Speed'},
+  {id:74, cat:'COLOR',    name:'Colortwinkles',       params:'Fade speed, Spawn speed'},
+  {id:75, cat:'ADVANCED', name:'Lake',                params:'Speed'},
+  {id:76, cat:'MOTION',   name:'Meteor',              params:'Speed, Trail, Gradient'},
+  {id:77, cat:'MOTION',   name:'Meteor Smooth',       params:'Speed, Trail, Gradient'},
+  {id:78, cat:'ADVANCED', name:'Railway',             params:'Speed, Smoothness'},
+  {id:79, cat:'MOTION',   name:'Ripple',              params:'Speed, Wave #, Overlay'},
+  {id:80, cat:'ADVANCED', name:'Twinklefox',          params:'Speed, Twinkle rate, Cool'},
+  {id:81, cat:'ADVANCED', name:'Twinklecat',          params:'Speed, Twinkle rate, Cool'},
+  {id:82, cat:'SEASONAL', name:'Halloween Eyes',      params:'Duration, Eye fade time, Overlay'},
+  {id:83, cat:'COLOR',    name:'Solid Pattern',       params:'Fg size, Bg size'},
+  {id:84, cat:'COLOR',    name:'Solid Pattern Tri',   params:'Size'},
+  {id:85, cat:'ADVANCED', name:'Spots',               params:'Spread, Width, Overlay'},
+  {id:86, cat:'COLOR',    name:'Spots Fade',          params:'Spread, Width, Overlay'},
+  {id:87, cat:'ADVANCED', name:'Glitter',             params:'Speed, Intensity, Overlay'},
+  {id:88, cat:'SEASONAL', name:'Candle',              params:'Speed, Intensity'},
+  {id:89, cat:'SEASONAL', name:'Fireworks Starburst', params:'Chance, Fragments, Overlay'},
+  {id:90, cat:'SEASONAL', name:'Fireworks 1D',        params:'Gravity, Firing side'},
+  {id:91, cat:'ADVANCED', name:'Bouncing Balls',      params:'Gravity, # of balls, Overlay'},
+  {id:92, cat:'MOTION',   name:'Sinelon',             params:'Speed, Trail'},
+  {id:93, cat:'MOTION',   name:'Sinelon Dual',        params:'Speed, Trail'},
+  {id:94, cat:'SEASONAL', name:'Sinelon Rainbow',     params:'Speed, Trail'},
+  {id:95, cat:'ADVANCED', name:'Popcorn',             params:'Speed, Intensity, Overlay'},
+  {id:96, cat:'MOTION',   name:'Drip',                params:'Gravity, # of drips, Overlay'},
+  {id:97, cat:'COLOR',    name:'Plasma',              params:'Phase, Intensity'},
+  {id:98, cat:'ADVANCED', name:'Percent',             params:'% of fill, One color'},
+  {id:100,cat:'ADVANCED', name:'Heartbeat',           params:'Speed, Intensity'},
+  {id:101,cat:'ADVANCED', name:'Pacifica',            params:'Speed, Angle'},
+  {id:102,cat:'SEASONAL', name:'Candle Multi',        params:'Speed, Intensity'},
+  {id:103,cat:'COLOR',    name:'Solid Glitter',       params:'Speed'},
+  {id:104,cat:'SEASONAL', name:'Sunrise',             params:'Time [min], Width'},
+  {id:105,cat:'ADVANCED', name:'Phased',              params:'Speed, Intensity'},
+  {id:106,cat:'ADVANCED', name:'Twinkleup',           params:'Speed, Intensity'},
+  {id:107,cat:'ADVANCED', name:'Noise Pal',           params:'Speed, Scale'},
+  {id:108,cat:'MOTION',   name:'Sine',                params:'Sine'},
+  {id:109,cat:'ADVANCED', name:'Phased Noise',        params:'Speed, Intensity'},
+  {id:110,cat:'MOTION',   name:'Flow',                params:'Speed, Zones'},
+  {id:111,cat:'ADVANCED', name:'Chunchun',            params:'Speed, Gap size'},
+  {id:112,cat:'ADVANCED', name:'Dancing Shadows',     params:'Speed, # of shadows'},
+  {id:113,cat:'ADVANCED', name:'Washing Machine',     params:'Speed, Intensity'},
+  {id:115,cat:'COLOR',    name:'Blends',              params:'Shift speed, Blend speed'},
+  {id:116,cat:'ADVANCED', name:'TV Simulator',        params:'Speed, Intensity'},
+  {id:117,cat:'ADVANCED', name:'Dynamic Smooth',      params:'Speed, Intensity'},
+  {id:128,cat:'ADVANCED', name:'Pixels',              params:'Fade rate, # of pixels'},
+  {id:129,cat:'MOTION',   name:'Pixelwave',           params:'Speed, Sensitivity'},
+  {id:130,cat:'MOTION',   name:'Juggles',             params:'Speed, # of balls'},
+  {id:131,cat:'ADVANCED', name:'Matripix',            params:'Speed, Brightness'},
+  {id:132,cat:'ADVANCED', name:'Gravimeter',          params:'Rate of fall, Sensitivity'},
+  {id:133,cat:'ADVANCED', name:'Plasmoid',            params:'Phase, # of pixels'},
+  {id:134,cat:'ADVANCED', name:'Puddles',             params:'Fade rate, Puddle size'},
+  {id:135,cat:'ADVANCED', name:'Midnoise',            params:'Fade rate, Max. length'},
+  {id:136,cat:'ADVANCED', name:'Noisemeter',          params:'Fade rate, Width'},
+  {id:137,cat:'MOTION',   name:'Freqwave',            params:'Speed, Sound effect, Low bin'},
+  {id:138,cat:'ADVANCED', name:'Freqmatrix',          params:'Speed, Sound effect, Low bin'},
+  {id:140,cat:'ADVANCED', name:'Waterfall',           params:'Speed, Adjust color, Select bin'},
+  {id:141,cat:'ADVANCED', name:'Freqpixels',          params:'Fade rate, Starting color and # of pixels'},
+  {id:143,cat:'SEASONAL', name:'Noisefire',           params:'Speed, Intensity'},
+  {id:144,cat:'ADVANCED', name:'Puddlepeak',          params:'Fade rate, Puddle size, Select bin'},
+  {id:145,cat:'ADVANCED', name:'Noisemove',           params:'Speed of perlin movement, Fade rate'},
+  {id:147,cat:'ADVANCED', name:'Perlin Move',         params:'Speed, # of pixels, Fade rate'},
+  {id:148,cat:'MOTION',   name:'Ripple Peak',         params:'Fade rate, Max # of ripples, Select bin'},
+  {id:155,cat:'ADVANCED', name:'Freqmap',             params:'Fade rate, Starting color'},
+  {id:156,cat:'ADVANCED', name:'Gravcenter',          params:'Rate of fall, Sensitivity'},
+  {id:157,cat:'ADVANCED', name:'Gravcentric',         params:'Rate of fall, Sensitivity'},
+  {id:158,cat:'ADVANCED', name:'Gravfreq',            params:'Rate of fall, Sensitivity'},
+  {id:159,cat:'ADVANCED', name:'DJ Light',            params:'Speed'},
+  {id:179,cat:'MOTION',   name:'Flow Stripe',         params:'Hue speed, Effect speed'},
+  {id:184,cat:'MOTION',   name:'Wavesins',            params:'Speed, Brightness variation, Starting color'},
+  {id:185,cat:'ADVANCED', name:'Rocktaves',           params:'Standard controls'},
+  {id:187,cat:'ADVANCED', name:'Tide',                params:'Flow speed, Wave width'},
+  {id:188,cat:'ADVANCED', name:'Glints',              params:'Spawn rate, Trail'},
+  {id:189,cat:'SEASONAL', name:'Pulse Train',         params:'Speed, Pulse count'},
+  {id:190,cat:'MOTION',   name:'Chase 4',             params:'Speed, Size'},
+  {id:191,cat:'MOTION',   name:'Chase 5',             params:'Speed, Size'},
+  {id:192,cat:'COLOR',    name:'Solid 2',             params:'Size'},
+  {id:193,cat:'COLOR',    name:'Solid 3',             params:'Size'},
+  {id:194,cat:'COLOR',    name:'Solid 4',             params:'Size'},
+  {id:195,cat:'COLOR',    name:'Solid 5',             params:'Size'},
+  {id:196,cat:'MOTION',   name:'Stack',               params:'Speed, Size'},
+  {id:197,cat:'MOTION',   name:'Chase Tail',          params:'Speed, Tail'},
+  {id:198,cat:'COLOR',    name:'Stack 3 Colors',      params:'Speed, Size'},
+];
+
+// ─── Canvas constants ────────────────────────────────────────
+const N   = 24;   // LED count
+const DOT = 7;    // dot diameter px
+const GAP = 2;    // gap between dots px
+const CW  = N * (DOT + GAP); // 216
+const CH  = 22;
+
+// ─── HSL → RGB ───────────────────────────────────────────────
+function hsl(h: number, s: number, l: number): [number, number, number] {
+  h = ((h % 360) + 360) % 360;
+  s /= 100; l /= 100;
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = l - c / 2;
+  let r = 0, g = 0, b = 0;
+  if (h < 60)        { r = c; g = x; b = 0; }
+  else if (h < 120)  { r = x; g = c; b = 0; }
+  else if (h < 180)  { r = 0; g = c; b = x; }
+  else if (h < 240)  { r = 0; g = x; b = c; }
+  else if (h < 300)  { r = x; g = 0; b = c; }
+  else               { r = c; g = 0; b = x; }
+  return [(r + m) * 255, (g + m) * 255, (b + m) * 255];
+}
+
+// ─── Animation type lookup ───────────────────────────────────
+function getAnimType(name: string): string {
+  const n = name.toLowerCase();
+  if (n.includes('rainbow') || n === 'pride 2015' || n === 'sinelon rainbow') return 'rainbow';
+  if (n.includes('fire') || n.includes('candle') || n === 'noisefire') return 'fire';
+  if (n === 'strobe' || n === 'strobe mega' || n === 'lightning' || n === 'dj light' || n === 'tv simulator') return 'strobe';
+  if (n.includes('meteor') || n.includes('comet') || n === 'chase tail' || n === 'glints') return 'meteor';
+  if (n === 'blink' || n === 'blink rainbow' || n === 'traffic light' || n === 'pulse train' || n === 'bpm') return 'blink';
+  if (n === 'breathe' || n === 'fade' || n === 'tri fade' || n === 'heartbeat' || n === 'sunrise' || n === 'percent') return 'breathe';
+  if (n.includes('scan') || n === 'android' || n === 'lighthouse' || n === 'icu' || n === 'oscillate' || n === 'two dots' || n === 'halloween eyes') return 'scan';
+  if (n.includes('chase') || n.includes('running') || n.includes('stream') || n === 'juggle' || n === 'juggles' || n === 'drip' || n === 'flow' || n === 'chunchun' || n === 'flow stripe' || n === 'stack' || n === 'theater' || n === 'sweep' || n === 'sweep random') return 'chase';
+  if (n.includes('wipe') || n === 'loading' || n === 'saw' || n === 'railway' || n === 'stack 3 colors' || n.includes('grav') || n === 'noisemeter' || n === 'tetrix') return 'wipe';
+  if (n === 'gradient' || n === 'blends' || n === 'palette' || n === 'colorwaves' || n === 'aurora') return 'gradient';
+  if (n === 'colorloop' || n === 'colorful' || n === 'washing machine' || n === 'random colors' || n === 'solid glitter' || n === 'colortwinkles' || n === 'dynamic' || n === 'dynamic smooth') return 'colorloop';
+  if (n.includes('twinkle') || n.includes('fairy') || n.includes('noise') || n === 'fill noise' || n === 'sparkle' || n === 'sparkle dark' || n === 'sparkle+' || n === 'glitter' || n === 'popcorn' || n === 'dissolve' || n === 'dissolve rnd' || n === 'pixels' || n === 'matripix' || n === 'midnoise') return 'twinkle';
+  if (n === 'sparkle' || n === 'fireworks' || n === 'fireworks starburst' || n === 'fireworks 1d' || n === 'rain' || n === 'spots' || n === 'spots fade' || n === 'bouncing balls' || n === 'rolling balls' || n === 'puddles' || n === 'popcorn' || n === 'freqpixels') return 'sparkle';
+  if (n.includes('solid') || n === 'fill noise') return 'solid';
+  if (n.includes('wave') || n.includes('ripple') || n === 'pacifica' || n.includes('plasma') || n === 'lake' || n === 'tide' || n.includes('sine') || n.includes('phased') || n === 'perlin move' || n === 'pixelwave' || n === 'wavesins' || n === 'waterfall' || n === 'freqwave' || n === 'rocktaves' || n === 'bpm') return 'wave';
+  return 'wave';
+}
+
+// ─── LED state type ──────────────────────────────────────────
+type LED = { r: number; g: number; b: number; a: number };
+
+// ─── Animation functions ─────────────────────────────────────
+const animFns: Record<string, (leds: LED[], t: number, h: number) => void> = {
+
+  solid(leds, t, h) {
+    const [r, g, b] = hsl(h, 100, 50);
+    leds.forEach(l => { l.r = r; l.g = g; l.b = b; l.a = 0.85; });
+  },
+
+  breathe(leds, t, h) {
+    const a = ((Math.sin(t * 1.3) + 1) / 2) * 0.85 + 0.05;
+    const [r, g, b] = hsl(h, 100, 50);
+    leds.forEach(l => { l.r = r; l.g = g; l.b = b; l.a = a; });
+  },
+
+  blink(leds, t, h) {
+    const on = Math.sin(t * 4) > 0;
+    const [r, g, b] = hsl(h, 100, 50);
+    leds.forEach(l => { l.r = r; l.g = g; l.b = b; l.a = on ? 0.9 : 0.04; });
+  },
+
+  chase(leds, t, h) {
+    const pos = (t * 1.2 % 1) * (leds.length + 3) - 1.5;
+    const [r, g, b] = hsl(h, 100, 55);
+    leds.forEach((l, i) => {
+      const d = Math.abs(i - pos);
+      l.r = r; l.g = g; l.b = b;
+      l.a = Math.max(0.03, (1 - d * 0.38)) * 0.92;
+    });
+  },
+
+  scan(leds, t, h) {
+    const pos = ((Math.sin(t * 1.8) + 1) / 2) * (leds.length - 1);
+    const [r, g, b] = hsl(h, 100, 60);
+    leds.forEach((l, i) => {
+      const d = Math.abs(i - pos);
+      l.r = r; l.g = g; l.b = b;
+      l.a = Math.max(0.03, 1 - d * 0.55) * 0.95;
+    });
+  },
+
+  rainbow(leds, t, h) {
+    leds.forEach((l, i) => {
+      const [r, g, b] = hsl((h + i * (360 / leds.length) + t * 80) % 360, 100, 50);
+      l.r = r; l.g = g; l.b = b; l.a = 0.85;
+    });
+  },
+
+  twinkle(leds, t, h) {
+    const [r, g, b] = hsl(h, 100, 52);
+    leds.forEach((l, i) => {
+      l.r = r; l.g = g; l.b = b;
+      l.a = Math.max(0.04, (Math.sin(t * (1.5 + i * 0.79) + i * 1.7) + 1) / 2 * 0.88);
+    });
+  },
+
+  fire(leds, t, h) {
+    leds.forEach((l, i) => {
+      const flicker = (Math.sin(t * (2.5 + i * 0.61) + i * 2.3) + 1) / 2;
+      const [r, g, b] = hsl(8 + flicker * 32, 100, 28 + flicker * 32);
+      l.r = r; l.g = g; l.b = b; l.a = 0.5 + flicker * 0.5;
+    });
+  },
+
+  strobe(leds, t, h) {
+    const on = Math.sin(t * 14) > 0.55;
+    const [r, g, b] = hsl(h, 20, 56);
+    leds.forEach(l => { l.r = r; l.g = g; l.b = b; l.a = on ? 1 : 0; });
+  },
+
+  meteor(leds, t, h) {
+    const pos = (t * 0.7 % 1.4) * leds.length - 1;
+    const [r, g, b] = hsl(h, 100, 55);
+    leds.forEach((l, i) => {
+      const trail = pos - i;
+      l.r = r; l.g = g; l.b = b;
+      l.a = (trail >= 0 && trail < 7) ? Math.max(0.03, (1 - trail / 7) * 0.92) : 0.03;
+    });
+  },
+
+  wave(leds, t, h) {
+    leds.forEach((l, i) => {
+      const bright = (Math.sin(i * 0.55 - t * 2.2) + 1) / 2;
+      const [r, g, b] = hsl(h, 100, 35 + bright * 22);
+      l.r = r; l.g = g; l.b = b; l.a = bright * 0.85 + 0.08;
+    });
+  },
+
+  colorloop(leds, t, h) {
+    const [r, g, b] = hsl((h + t * 45) % 360, 100, 50);
+    leds.forEach(l => { l.r = r; l.g = g; l.b = b; l.a = 0.85; });
+  },
+
+  wipe(leds, t, h) {
+    const pos = (t * 0.45 % 1) * leds.length;
+    leds.forEach((l, i) => {
+      const inWipe = i < pos;
+      const [r, g, b] = inWipe ? hsl(h, 100, 50) : hsl((h + 180) % 360, 80, 28);
+      l.r = r; l.g = g; l.b = b; l.a = inWipe ? 0.88 : 0.22;
+    });
+  },
+
+  sparkle(leds, t, h) {
+    const [r, g, b] = hsl(h, 100, 50);
+    leds.forEach((l, i) => {
+      const spark = Math.sin(t * 8.3 + i * 4.13) > 0.8;
+      l.r = r; l.g = g; l.b = b; l.a = spark ? 0.95 : 0.05;
+    });
+  },
+
+  gradient(leds, t, h) {
+    leds.forEach((l, i) => {
+      const [r, g, b] = hsl((h + i * (220 / leds.length) + t * 28) % 360, 90, 50);
+      l.r = r; l.g = g; l.b = b; l.a = 0.8;
+    });
+  },
+};
+
+// ─── Draw LEDs on canvas ─────────────────────────────────────
+function drawLeds(ctx: CanvasRenderingContext2D, leds: LED[]) {
+  ctx.clearRect(0, 0, CW, CH);
+  leds.forEach((l, i) => {
+    const x = i * (DOT + GAP) + DOT / 2;
+    const y = CH / 2;
+    const a = Math.min(1, l.a);
+    if (a < 0.02) return;
+
+    // Glow halo
+    const grd = ctx.createRadialGradient(x, y, 0, x, y, DOT * 1.6);
+    grd.addColorStop(0, `rgba(${l.r | 0},${l.g | 0},${l.b | 0},${(a * 0.55).toFixed(2)})`);
+    grd.addColorStop(1, `rgba(${l.r | 0},${l.g | 0},${l.b | 0},0)`);
+    ctx.beginPath();
+    ctx.arc(x, y, DOT * 1.55, 0, Math.PI * 2);
+    ctx.fillStyle = grd;
+    ctx.fill();
+
+    // Core dot
+    ctx.beginPath();
+    ctx.arc(x, y, DOT / 2, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${l.r | 0},${l.g | 0},${l.b | 0},${a.toFixed(2)})`;
+    ctx.fill();
+  });
+}
+
+// ─── Canvas state registry ───────────────────────────────────
+interface CanvasState { type: string; hue: number; leds: LED[] }
+const states = new Map<HTMLCanvasElement, CanvasState>();
+const visible = new Set<HTMLCanvasElement>();
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    const c = e.target as HTMLCanvasElement;
+    if (e.isIntersecting) visible.add(c);
+    else visible.delete(c);
+  });
+}, { rootMargin: '120px' });
+
+// ─── Category colors ─────────────────────────────────────────
+const CAT_COLOR: Record<string, string> = {
+  MOTION:   '#4A90D9',
+  COLOR:    '#F0C000',
+  SEASONAL: '#4CAF50',
+  ADVANCED: '#9B59B6',
+};
+
+// ─── Build a card ────────────────────────────────────────────
+function buildCard(fx: typeof EFFECTS[number]) {
+  const hue      = (fx.id * 37 + 15) % 360;
+  const animType = getAnimType(fx.name);
+  const cc       = CAT_COLOR[fx.cat] ?? '#888';
+
+  const card = document.createElement('div');
+  card.className = 'fx-card';
+  card.dataset.cat  = fx.cat;
+  card.dataset.name = fx.name.toLowerCase();
+
+  const canvas = document.createElement('canvas');
+  canvas.width  = CW;
+  canvas.height = CH;
+  canvas.className = 'led-canvas';
+
+  const leds: LED[] = Array.from({ length: N }, () => ({ r: 255, g: 200, b: 0, a: 0.5 }));
+  states.set(canvas, { type: animType, hue, leds });
+  observer.observe(canvas);
+
+  const previewWrap = document.createElement('div');
+  previewWrap.className = 'led-wrap';
+  previewWrap.appendChild(canvas);
+
+  const body = document.createElement('div');
+  body.className = 'fx-body';
+  body.innerHTML = `
+    <div class="fx-top">
+      <span class="fx-name">${fx.name}</span>
+      <span class="fx-badge" style="background:${cc}18;color:${cc};border-color:${cc}40">${fx.cat}</span>
+    </div>
+    <div class="fx-sub">FX ${fx.id}${fx.params ? ` · ${fx.params}` : ''}</div>
+  `;
+
+  card.appendChild(previewWrap);
+  card.appendChild(body);
+  return card;
+}
+
+// ─── Render all cards ────────────────────────────────────────
+const grid = document.getElementById('effectsGrid')!;
+const frag = document.createDocumentFragment();
+EFFECTS.forEach(fx => frag.appendChild(buildCard(fx)));
+grid.appendChild(frag);
+
+// ─── Animation loop ──────────────────────────────────────────
+const T0 = performance.now();
+function loop() {
+  const t = (performance.now() - T0) / 1000;
+  visible.forEach(canvas => {
+    const state = states.get(canvas);
+    if (!state) return;
+    const fn = animFns[state.type] ?? animFns.wave;
+    fn(state.leds, t, state.hue);
+    const ctx = canvas.getContext('2d');
+    if (ctx) drawLeds(ctx, state.leds);
+  });
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+// ─── Filters & search ────────────────────────────────────────
+let activeFilter = 'all';
+let activeSearch = '';
+
+function refresh() {
+  let count = 0;
+  grid.querySelectorAll<HTMLElement>('.fx-card').forEach(card => {
+    const matchCat    = activeFilter === 'all' || card.dataset.cat === activeFilter;
+    const matchSearch = !activeSearch || (card.dataset.name ?? '').includes(activeSearch);
+    const show = matchCat && matchSearch;
+    card.style.display = show ? '' : 'none';
+    if (show) count++;
+  });
+  const vc = document.getElementById('visibleCount');
+  if (vc) vc.textContent = String(count);
+  const nr = document.getElementById('noResults');
+  if (nr) nr.style.display = count === 0 ? 'block' : 'none';
+}
+
+document.querySelectorAll<HTMLButtonElement>('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter ?? 'all';
+    refresh();
+  });
+});
+
+const searchEl = document.getElementById('fxSearch') as HTMLInputElement | null;
+searchEl?.addEventListener('input', () => {
+  activeSearch = searchEl.value.toLowerCase().trim();
+  refresh();
+});
+</script>
+
+<style>
+  /* ---- Hero ---- */
+  .anim-hero {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    padding: 160px 0 80px;
+  }
+
+  .hero-chips {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  .chip {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 999px;
+    border: 1px solid;
+  }
+  .chip-motion   { color: #4A90D9; background: #4A90D918; border-color: #4A90D940; }
+  .chip-color    { color: #F0C000; background: #F0C00018; border-color: #F0C00040; }
+  .chip-seasonal { color: #4CAF50; background: #4CAF5018; border-color: #4CAF5040; }
+  .chip-advanced { color: #9B59B6; background: #9B59B618; border-color: #9B59B640; }
+
+  /* ---- Controls ---- */
+  .controls-section {
+    background: var(--surface3);
+    border-bottom: 1px solid var(--border);
+    padding: 1.25rem 0;
+  }
+  .controls-row {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .filter-tabs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--silver);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition);
+    font-family: inherit;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--white); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: #000; }
+  .fbadge {
+    background: rgba(255,255,255,0.15);
+    border-radius: 999px;
+    padding: 1px 6px;
+    font-size: 0.7rem;
+  }
+  .filter-btn.active .fbadge { background: rgba(0,0,0,0.18); }
+
+  .fx-search {
+    padding: 0.35rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--white);
+    font-size: 0.85rem;
+    font-family: inherit;
+    min-width: 190px;
+    outline: none;
+    transition: border-color var(--transition);
+  }
+  .fx-search:focus { border-color: var(--accent); }
+  .fx-search::placeholder { color: var(--muted); }
+
+  .results-line {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+  }
+
+  /* ---- Grid ---- */
+  .grid-section {
+    background: var(--surface);
+    padding: 2.5rem 0 5rem;
+  }
+
+  .effects-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.85rem;
+  }
+
+  .fx-card {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .fx-card:hover {
+    border-color: var(--border-gold);
+    transform: translateY(-2px);
+  }
+
+  .led-wrap {
+    background: #080808;
+    padding: 8px 8px 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .led-canvas {
+    display: block;
+    width: 100%;
+    height: 22px;
+  }
+
+  .fx-body { padding: 0.65rem 0.9rem 0.75rem; }
+
+  .fx-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.4rem;
+    margin-bottom: 0.3rem;
+  }
+  .fx-name {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.3;
+  }
+  .fx-badge {
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 2px 5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .fx-sub {
+    font-size: 0.7rem;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+
+  .no-results {
+    text-align: center;
+    color: var(--muted);
+    padding: 4rem 0;
+    font-size: 1rem;
+  }
+
+  /* ---- CTA ---- */
+  .anim-cta {
+    background: linear-gradient(135deg, #0a1000 0%, #1a2800 50%, #080808 100%);
+    border-top: 1px solid rgba(45,90,39,0.4);
+    padding: var(--section-pad);
+    position: relative;
+    overflow: hidden;
+  }
+  .anim-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(200,150,12,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .anim-cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  .anim-cta h2 { font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 900; margin-bottom: 0.5rem; }
+  .anim-cta p  { color: var(--silver); font-size: 0.95rem; max-width: 480px; }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 1200px) { .effects-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 820px)  { .effects-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px)  { .effects-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 600px)  { .anim-cta-inner { flex-direction: column; text-align: center; } }
+  @media (max-width: 640px)  { .controls-row { flex-direction: column; align-items: flex-start; } }
+</style>
