@@ -3,8 +3,8 @@ title: "Permanent LED Lighting in Idaho Falls: Your Spring Curb Appeal Guide"
 description: "Discover how permanent LED exterior lighting transforms Idaho Falls homes this spring. ShowHome certified, app-controlled, and built to last 20-30 years."
 pubDate: "2026-04-11"
 tags: ["permanent led lighting", "idaho falls", "outdoor lighting", "spring curb appeal", "showHome lighting"]
-heroImage: "/images/tel-house-colorful-wide.jpg"
-heroAlt: "Idaho Falls home lit with colorful permanent LED lighting by Teton Exterior Lighting"
+heroImage: "/images/colorful-year-round-led-roofline-lighting.jpg"
+heroAlt: "Colorful year-round permanent LED roofline lighting on Idaho Falls home exterior"
 draft: false
 ---
 

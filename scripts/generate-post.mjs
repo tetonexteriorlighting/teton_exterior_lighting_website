@@ -29,24 +29,24 @@ const customTopic = getArg('--topic');
 // ---- Curated hero images by season ----
 const HERO_IMAGES = {
   spring: [
-    { src: '/images/tel-house-colorful-wide.jpg',   alt: 'Home with colorful permanent LED lighting by Teton Exterior Lighting' },
-    { src: '/images/tel-twostory-teal.jpg',          alt: 'Two-story home with teal permanent LED roofline lighting' },
-    { src: '/images/tel-twostory-pink.jpg',          alt: 'Two-story home with pink permanent LED exterior lighting' },
+    { src: '/images/colorful-year-round-led-roofline-lighting.jpg',   alt: 'Colorful year-round permanent LED roofline lighting - Idaho Falls exterior trim lights' },
+    { src: '/images/teal-smart-led-exterior-trim-lights.jpg',          alt: 'Teal smart LED exterior trim lights on two-story home - year-round roofline lighting' },
+    { src: '/images/pink-permanent-led-trim-lights-home.jpg',          alt: 'Pink permanent LED trim lights on two-story home roofline - year-round outdoor lights' },
   ],
   summer: [
-    { src: '/images/tel-house-multicolor-dusk.jpg', alt: 'Home lit with multicolor permanent LED lighting at dusk' },
-    { src: '/images/tel-house-colorful-wide.jpg',   alt: 'Home with colorful permanent LED lighting by Teton Exterior Lighting' },
-    { src: '/images/tel-twostory-warm.jpg',          alt: 'Two-story home glowing with warm white permanent LED lighting' },
+    { src: '/images/permanent-outdoor-holiday-lighting-dusk.jpg', alt: 'Multicolor permanent outdoor LED holiday lighting at dusk - smart trim lights' },
+    { src: '/images/colorful-year-round-led-roofline-lighting.jpg',   alt: 'Colorful year-round permanent LED roofline lighting - Idaho Falls exterior trim lights' },
+    { src: '/images/warm-white-year-round-roofline-led-lights.jpg',          alt: 'Warm white year-round permanent LED roofline lights on two-story home exterior' },
   ],
   fall: [
-    { src: '/images/tel-house-warm-wide.jpg',       alt: 'Home glowing with warm white permanent LED exterior lighting' },
-    { src: '/images/tel-twostory-warm.jpg',          alt: 'Two-story home with warm white permanent LED roofline lighting' },
-    { src: '/images/tel-house-multicolor.jpg',       alt: 'Home with multicolor permanent LED lighting by Teton Exterior Lighting' },
+    { src: '/images/roofline-led-lighting-year-round-home.jpg',       alt: 'Warm white year-round LED roofline lighting on home - permanent outdoor trim lights' },
+    { src: '/images/warm-white-year-round-roofline-led-lights.jpg',          alt: 'Warm white permanent LED roofline trim lights on two-story home - ShowHome lighting' },
+    { src: '/images/multicolor-permanent-led-outdoor-lights.jpg',       alt: 'Multicolor smart permanent LED outdoor lights - year-round holiday roofline lighting' },
   ],
   winter: [
-    { src: '/images/tel-white-ranch-patriotic.jpg', alt: 'Ranch home with festive red, white, and blue permanent LED lighting' },
-    { src: '/images/tel-white-ranch-warm.jpg',       alt: 'White ranch home with warm white permanent LED roofline lighting' },
-    { src: '/images/tel-ranch-wide.jpg',             alt: 'Ranch-style home with permanent LED exterior lighting' },
+    { src: '/images/year-round-holiday-led-patriotic-roofline.jpg', alt: 'Year-round holiday LED roofline lights in patriotic red white blue - permanent outdoor lighting' },
+    { src: '/images/smart-outdoor-led-trim-lights-white-ranch.jpg',       alt: 'Smart outdoor LED trim lights on white ranch home - year-round permanent exterior lighting' },
+    { src: '/images/showhome-permanent-led-roofline-ranch.jpg',             alt: 'ShowHome permanent LED roofline lighting on ranch-style home - Idaho Falls outdoor lights' },
   ],
 };
 
