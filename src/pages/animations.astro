@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 
 <Layout
   title="Lighting Animations & Effects | Teton Exterior Lighting"
-  description="Browse all 153 ShowHome lighting effects available with your permanent LED system. Every animation shown live. App-controlled from your phone."
+  description="Browse 32 visually unique ShowHome lighting effects for your permanent LED system. Every effect shown live with a house preview. App-controlled from your phone."
 >
   <Nav />
 
@@ -17,10 +17,10 @@ import Footer from '../components/Footer.astro';
     <div class="container anim-hero-inner">
       <span class="eyebrow center">App-Controlled Effects</span>
       <div class="gold-rule center"></div>
-      <h1 class="section-title" style="text-align:center">153 Lighting Effects</h1>
+      <h1 class="section-title" style="text-align:center">32 Unique Effects</h1>
       <p class="section-body center" style="max-width:560px;margin:0.75rem auto 2rem">
-        Every animation built into the ShowHome app — all on your phone. Change your home's entire look
-        in seconds. Browse the full library below.
+        32 visually distinct lighting effects built into the ShowHome app, each looking genuinely
+        different from the rest. All controlled from your phone in seconds.
       </p>
       <div class="search-wrap">
         <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
@@ -48,7 +48,7 @@ import Footer from '../components/Footer.astro';
   <section class="anim-cta">
     <div class="container anim-cta-inner">
       <div>
-        <h2>All 153 Effects. One App.</h2>
+        <h2>32 Unique Effects. One App.</h2>
         <p>Change your home's look in seconds from anywhere in the world. Get your permanent LED system installed today.</p>
       </div>
       <a href="/contact" class="btn btn-gold btn-lg">Get My Free Quote →</a>
@@ -62,161 +62,40 @@ import Footer from '../components/Footer.astro';
      JAVASCRIPT
 ═══════════════════════════════════════════════════════════════ -->
 <script>
-// ─── Effect catalogue ────────────────────────────────────────────────────────
+// ─── Effect catalogue — 32 visually distinct effects, one per animation type ──
 const EFFECTS = [
-  {id:0,  name:'Solid 1'},
-  {id:1,  name:'Blink'},
-  {id:2,  name:'Breathe'},
-  {id:3,  name:'Wipe'},
-  {id:4,  name:'Wipe Random'},
-  {id:5,  name:'Random Colors'},
-  {id:6,  name:'Sweep'},
-  {id:7,  name:'Dynamic'},
-  {id:8,  name:'Colorloop'},
-  {id:9,  name:'Rainbow'},
-  {id:10, name:'Scan'},
-  {id:11, name:'Scan Dual'},
-  {id:12, name:'Fade'},
-  {id:13, name:'Theater'},
-  {id:14, name:'Theater Rainbow'},
-  {id:15, name:'Running'},
-  {id:16, name:'Saw'},
-  {id:17, name:'Twinkle'},
-  {id:18, name:'Dissolve'},
-  {id:19, name:'Dissolve Rnd'},
-  {id:20, name:'Sparkle'},
-  {id:21, name:'Sparkle Dark'},
-  {id:22, name:'Sparkle+'},
-  {id:23, name:'Strobe'},
-  {id:24, name:'Strobe Rainbow'},
-  {id:25, name:'Strobe Mega'},
-  {id:26, name:'Blink Rainbow'},
-  {id:27, name:'Android'},
-  {id:28, name:'Chase'},
-  {id:29, name:'Chase Random'},
-  {id:30, name:'Chase Rainbow'},
-  {id:31, name:'Chase Flash'},
-  {id:32, name:'Chase Flash Rnd'},
-  {id:33, name:'Rainbow Runner'},
-  {id:34, name:'Colorful'},
-  {id:35, name:'Traffic Light'},
-  {id:36, name:'Sweep Random'},
-  {id:37, name:'Chase 2'},
-  {id:38, name:'Aurora'},
-  {id:39, name:'Stream'},
-  {id:40, name:'Scanner'},
-  {id:41, name:'Lighthouse'},
-  {id:42, name:'Fireworks'},
-  {id:43, name:'Rain'},
-  {id:44, name:'Tetrix'},
-  {id:45, name:'Fire Flicker'},
-  {id:46, name:'Gradient'},
-  {id:47, name:'Loading'},
-  {id:48, name:'Rolling Balls'},
-  {id:49, name:'Fairy'},
-  {id:50, name:'Two Dots'},
-  {id:51, name:'Fairytwinkle'},
-  {id:52, name:'Running Dual'},
-  {id:54, name:'Chase 3'},
-  {id:55, name:'Tri Wipe'},
-  {id:56, name:'Tri Fade'},
-  {id:57, name:'Lightning'},
-  {id:58, name:'ICU'},
-  {id:59, name:'Multi Comet'},
-  {id:60, name:'Scanner Dual'},
-  {id:61, name:'Stream 2'},
-  {id:62, name:'Oscillate'},
-  {id:63, name:'Pride 2015'},
-  {id:64, name:'Juggle'},
-  {id:65, name:'Palette'},
-  {id:66, name:'Fire 2012'},
-  {id:67, name:'Colorwaves'},
-  {id:68, name:'Bpm'},
-  {id:69, name:'Fill Noise'},
-  {id:70, name:'Noise 1'},
-  {id:71, name:'Noise 2'},
-  {id:72, name:'Noise 3'},
-  {id:73, name:'Noise 4'},
-  {id:74, name:'Colortwinkles'},
-  {id:75, name:'Lake'},
-  {id:76, name:'Meteor'},
-  {id:77, name:'Meteor Smooth'},
-  {id:78, name:'Railway'},
-  {id:79, name:'Ripple'},
-  {id:80, name:'Twinklefox'},
-  {id:81, name:'Twinklecat'},
-  {id:82, name:'Halloween Eyes'},
-  {id:83, name:'Solid Pattern'},
-  {id:84, name:'Solid Pattern Tri'},
-  {id:85, name:'Spots'},
-  {id:86, name:'Spots Fade'},
-  {id:87, name:'Glitter'},
-  {id:88, name:'Candle'},
-  {id:89, name:'Fireworks Starburst'},
-  {id:90, name:'Fireworks 1D'},
-  {id:91, name:'Bouncing Balls'},
-  {id:92, name:'Sinelon'},
-  {id:93, name:'Sinelon Dual'},
-  {id:94, name:'Sinelon Rainbow'},
-  {id:95, name:'Popcorn'},
-  {id:96, name:'Drip'},
-  {id:97, name:'Plasma'},
-  {id:98, name:'Percent'},
-  {id:100,name:'Heartbeat'},
-  {id:101,name:'Pacifica'},
-  {id:102,name:'Candle Multi'},
-  {id:103,name:'Solid Glitter'},
-  {id:104,name:'Sunrise'},
-  {id:105,name:'Phased'},
-  {id:106,name:'Twinkleup'},
-  {id:107,name:'Noise Pal'},
-  {id:108,name:'Sine'},
-  {id:109,name:'Phased Noise'},
-  {id:110,name:'Flow'},
-  {id:111,name:'Chunchun'},
-  {id:112,name:'Dancing Shadows'},
-  {id:113,name:'Washing Machine'},
-  {id:115,name:'Blends'},
-  {id:116,name:'TV Simulator'},
-  {id:117,name:'Dynamic Smooth'},
-  {id:128,name:'Pixels'},
-  {id:129,name:'Pixelwave'},
-  {id:130,name:'Juggles'},
-  {id:131,name:'Matripix'},
-  {id:132,name:'Gravimeter'},
-  {id:133,name:'Plasmoid'},
-  {id:134,name:'Puddles'},
-  {id:135,name:'Midnoise'},
-  {id:136,name:'Noisemeter'},
-  {id:137,name:'Freqwave'},
-  {id:138,name:'Freqmatrix'},
-  {id:140,name:'Waterfall'},
-  {id:141,name:'Freqpixels'},
-  {id:143,name:'Noisefire'},
-  {id:144,name:'Puddlepeak'},
-  {id:145,name:'Noisemove'},
-  {id:147,name:'Perlin Move'},
-  {id:148,name:'Ripple Peak'},
-  {id:155,name:'Freqmap'},
-  {id:156,name:'Gravcenter'},
-  {id:157,name:'Gravcentric'},
-  {id:158,name:'Gravfreq'},
-  {id:159,name:'DJ Light'},
-  {id:179,name:'Flow Stripe'},
-  {id:184,name:'Wavesins'},
-  {id:185,name:'Rocktaves'},
-  {id:187,name:'Tide'},
-  {id:188,name:'Glints'},
-  {id:189,name:'Pulse Train'},
-  {id:190,name:'Chase 4'},
-  {id:191,name:'Chase 5'},
-  {id:192,name:'Solid 2'},
-  {id:193,name:'Solid 3'},
-  {id:194,name:'Solid 4'},
-  {id:195,name:'Solid 5'},
-  {id:196,name:'Stack'},
-  {id:197,name:'Chase Tail'},
-  {id:198,name:'Stack 3 Colors'},
+  {id:0,   name:'Solid 1'},          // steady, all LEDs same colour
+  {id:8,   name:'Colorloop'},        // solid but slowly cycles through all hues
+  {id:2,   name:'Breathe'},          // whole strip pulses in and out
+  {id:100, name:'Heartbeat'},        // double-beat lub-dub pulse
+  {id:1,   name:'Blink'},            // sharp on/off
+  {id:23,  name:'Strobe'},           // rapid white flash
+  {id:35,  name:'Traffic Light'},    // green → yellow → red cycling
+  {id:28,  name:'Chase'},            // single dot with short trailing fade
+  {id:31,  name:'Chase Flash'},      // chasing dot with strobe at the head
+  {id:13,  name:'Theater'},          // every 3rd LED lit, marquee march
+  {id:6,   name:'Sweep'},            // one-way fill from left, resets
+  {id:3,   name:'Wipe'},             // two-colour wipe across the strip
+  {id:10,  name:'Scan'},             // single dot bouncing left and right
+  {id:11,  name:'Scan Dual'},        // two dots bouncing inward and outward
+  {id:76,  name:'Meteor'},           // slow comet with long fading trail
+  {id:39,  name:'Stream'},           // three dots flowing at different speeds
+  {id:15,  name:'Running'},          // three comets marching in formation
+  {id:64,  name:'Juggle'},           // multi-colour balls bouncing at different speeds
+  {id:79,  name:'Ripple'},           // waves radiating outward from centre
+  {id:9,   name:'Rainbow'},          // full spectrum slowly scrolling
+  {id:30,  name:'Chase Rainbow'},    // rainbow + bright chasing dot overlay
+  {id:46,  name:'Gradient'},         // smooth two-colour gradient shifting
+  {id:97,  name:'Plasma'},           // shifting multi-colour interference pattern
+  {id:101, name:'Pacifica'},         // rolling ocean-wave brightness
+  {id:17,  name:'Twinkle'},          // each LED flickers independently
+  {id:18,  name:'Dissolve'},         // pixels fade in and out at random phases
+  {id:20,  name:'Sparkle'},          // dark background with sudden bright flashes
+  {id:66,  name:'Fire 2012'},        // warm directional flame
+  {id:88,  name:'Candle'},           // organic warm candle flicker
+  {id:56,  name:'Tri Fade'},         // three-colour sections cycling
+  {id:83,  name:'Solid Pattern'},    // alternating colour blocks
+  {id:82,  name:'Halloween Eyes'},   // two glowing eyes that occasionally blink
 ];
 
 // ─── Canvas & house geometry ─────────────────────────────────────────────────
