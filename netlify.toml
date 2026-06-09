@@ -5,6 +5,13 @@
 [build.environment]
   NODE_VERSION = "20"
 
+[functions]
+  directory        = "netlify/functions"
+  node_bundler     = "esbuild"
+
+[functions."staff-chat"]
+  included_files = []
+
 # RoofLit installer tool (SPA — all sub-paths serve its own index.html)
 [[redirects]]
   from   = "/tools/app/*"

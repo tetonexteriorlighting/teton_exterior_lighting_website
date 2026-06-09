@@ -1,0 +1,214 @@
+---
+// Staff portal login — not linked in public nav/footer
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staff Login · Teton Exterior Lighting</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<div class="page">
+  <div class="card">
+    <img src="/images/logo.png" alt="Teton Exterior Lighting" class="logo" />
+    <h1>Staff Portal</h1>
+    <p class="sub">Enter your access password to continue.</p>
+
+    <form id="loginForm">
+      <div class="field">
+        <input
+          type="password"
+          id="passwordInput"
+          class="input"
+          placeholder="Password"
+          autocomplete="current-password"
+          autofocus
+        />
+      </div>
+      <p id="errorMsg" class="error" aria-live="polite"></p>
+      <button type="submit" class="btn" id="submitBtn">
+        <span id="btnText">Enter Portal</span>
+        <span id="btnSpinner" class="spinner" style="display:none"></span>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script>
+  // If already authed, skip login
+  if (sessionStorage.getItem('telStaffAuthed') === 'true') {
+    window.location.replace('/staff/portal');
+  }
+
+  const form        = document.getElementById('loginForm');
+  const input       = document.getElementById('passwordInput');
+  const errorMsg    = document.getElementById('errorMsg');
+  const btnText     = document.getElementById('btnText');
+  const btnSpinner  = document.getElementById('btnSpinner');
+  const submitBtn   = document.getElementById('submitBtn');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const password = input.value.trim();
+    if (!password) return;
+
+    // Loading state
+    btnText.style.display    = 'none';
+    btnSpinner.style.display = 'inline-block';
+    submitBtn.disabled       = true;
+    errorMsg.textContent     = '';
+
+    try {
+      const res  = await fetch('/.netlify/functions/staff-auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        // Store auth + password (needed to authenticate chat requests)
+        sessionStorage.setItem('telStaffAuthed', 'true');
+        sessionStorage.setItem('telStaffPw', password);
+        window.location.replace('/staff/portal');
+      } else {
+        errorMsg.textContent = 'Incorrect password. Please try again.';
+        input.value = '';
+        input.focus();
+      }
+    } catch {
+      errorMsg.textContent = 'Connection error. Please try again.';
+    } finally {
+      btnText.style.display    = '';
+      btnSpinner.style.display = 'none';
+      submitBtn.disabled       = false;
+    }
+  });
+</script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: #080808;
+    color: #f0f0f0;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .page {
+    width: 100%;
+    padding: 2rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card {
+    background: #111116;
+    border: 1px solid #22222c;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+  }
+
+  .logo {
+    height: 72px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(1.8);
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #fff;
+    margin-bottom: 0.35rem;
+  }
+
+  .sub {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 1.75rem;
+    text-align: center;
+  }
+
+  form { width: 100%; display: flex; flex-direction: column; gap: 0.75rem; }
+
+  .field { position: relative; }
+
+  .input {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    background: #18181e;
+    border: 1px solid #2a2a36;
+    border-radius: 8px;
+    color: #f0f0f0;
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .input:focus { border-color: #c8a000; }
+  .input::placeholder { color: #444; }
+
+  .error {
+    font-size: 0.78rem;
+    color: #e05555;
+    min-height: 1.1em;
+    text-align: center;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 0.75rem;
+    background: #c8a000;
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-size: 0.9rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background 0.2s, opacity 0.2s;
+    margin-top: 0.25rem;
+  }
+  .btn:hover:not(:disabled) { background: #d4ae10; }
+  .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(0,0,0,0.3);
+    border-top-color: #000;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+
+</body>
+</html>
