@@ -337,21 +337,14 @@ import Footer from '../components/Footer.astro';
   <section class="app-section" id="app">
     <div class="container app-inner">
       <div class="app-phone reveal">
-        <div class="phone-mock">
-          <div class="phone-screen">
-            <div class="app-header-ui">Teton Lights</div>
-            <div class="color-wheel"></div>
-            <div class="preset-row">
-              <span class="chip red">Christmas</span>
-              <span class="chip blue">4th of July</span>
-              <span class="chip orange">Halloween</span>
-            </div>
-            <div class="brightness-ui">
-              <span>Brightness</span>
-              <div class="bar"><div class="bar-fill"></div></div>
-            </div>
-            <div class="schedule-ui">⏰ Schedule: Sunset → Midnight</div>
-          </div>
+        <div class="phone-frame">
+          <img
+            src="/images/showhome-app-ui.png"
+            alt="ShowHome app interface — color wheel, effects, and presets"
+            class="phone-img"
+            loading="lazy"
+            width="400"
+          />
         </div>
       </div>
       <div class="app-text reveal">
@@ -829,78 +822,19 @@ import Footer from '../components/Footer.astro';
     align-items: center;
   }
 
-  .phone-mock {
-    width: 240px;
-    height: 460px;
-    background: #111;
-    border-radius: 36px;
-    border: 6px solid #222;
+  .phone-frame {
+    width: 260px;
     margin: 0 auto;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+    border-radius: 40px;
     overflow: hidden;
-    position: relative;
-  }
-  .phone-mock::before {
-    content: '';
-    position: absolute;
-    top: 12px; left: 50%;
-    transform: translateX(-50%);
-    width: 60px; height: 6px;
-    background: #222;
-    border-radius: 3px;
-    z-index: 2;
+    border: 6px solid #1e1e1e;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.05);
   }
 
-  .phone-screen {
+  .phone-img {
+    display: block;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(160deg, #0a0e1a 0%, #1a2744 100%);
-    padding: 32px 16px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .app-header-ui {
-    color: var(--accent);
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-align: center;
-    margin-top: 4px;
-  }
-
-  .color-wheel {
-    width: 96px; height: 96px;
-    border-radius: 50%;
-    background: conic-gradient(red, orange, yellow, green, cyan, blue, violet, red);
-    margin: 0 auto;
-    box-shadow: 0 0 30px rgba(255,255,255,0.15);
-  }
-
-  .preset-row { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
-  .chip {
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 0.62rem;
-    font-weight: 600;
-    color: #fff;
-  }
-  .chip.red    { background: rgba(220,50,50,0.7); }
-  .chip.blue   { background: rgba(50,100,220,0.7); }
-  .chip.orange { background: rgba(220,110,30,0.7); }
-
-  .brightness-ui > span { display: block; font-size: 0.62rem; color: rgba(255,255,255,0.45); margin-bottom: 4px; }
-  .bar { height: 5px; background: rgba(255,255,255,0.1); border-radius: 3px; }
-  .bar-fill { height: 100%; width: 68%; background: linear-gradient(90deg, var(--accent), var(--accent-bright)); border-radius: 3px; }
-
-  .schedule-ui {
-    background: rgba(255,255,255,0.05);
-    border-radius: 6px;
-    padding: 8px;
-    font-size: 0.6rem;
-    color: rgba(255,255,255,0.5);
-    text-align: center;
+    height: auto;
   }
 
   .app-list { margin-top: 1.75rem; display: flex; flex-direction: column; gap: 1.25rem; }
