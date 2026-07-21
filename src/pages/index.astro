@@ -381,6 +381,9 @@ import Footer from '../components/Footer.astro';
         <span class="eyebrow center">What Homeowners Are Saying</span>
         <div class="gold-rule center"></div>
         <h2 class="section-title" style="text-align:center">Congrats on Being the<br />Best-Lit House on the Block</h2>
+        <a href="https://www.google.com/maps?cid=8379863443859849851" target="_blank" rel="noopener" class="google-rating-link">
+          ⭐⭐⭐⭐⭐ 5.0 rating · 46 Google Reviews
+        </a>
       </div>
       <div class="testi-grid">
         {[
@@ -847,6 +850,18 @@ import Footer from '../components/Footer.astro';
   .testimonials {
     background: var(--surface2);
     padding: var(--section-pad);
+  }
+
+  .google-rating-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--silver);
+    text-decoration: none;
+  }
+  .google-rating-link:hover {
+    color: var(--accent);
   }
 
   .testi-grid {
