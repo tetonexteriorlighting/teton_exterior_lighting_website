@@ -27,7 +27,7 @@ Teton Exterior Lighting is a certified ShowHome partner, and that distinction ma
 - **3x brighter** than typical DIY or competitor systems, so it still reads clearly against a bright summer sky at dusk
 - **16 million colors** with every bulb individually addressable for sharp, clean effects
 - **App-controlled** scheduling and presets you can trigger from the patio or from across town
-- **5-year product warranty** backed by a 20 to 30 year expected lifespan
+- **5 to 15 year parts and labor warranty**, up to the full 15 years on complete home wraps, backed by a 20 to 30 year expected lifespan
 
 The track mounts flush along your roofline and color-matches your trim, so during the day it's invisible. At night, it's the reason your house is the one people notice from the street.
 

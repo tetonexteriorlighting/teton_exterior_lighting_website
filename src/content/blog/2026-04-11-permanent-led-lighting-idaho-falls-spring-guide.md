@@ -27,7 +27,7 @@ Not all permanent lighting systems are the same. Teton Exterior Lighting is a ce
 - **3x brighter** than typical DIY or competitor systems
 - **16 million colors** with every bulb individually addressable
 - **App-controlled** scheduling, presets, and custom animations
-- **5-year product warranty** and a 20 to 30 year expected lifespan
+- **5 to 15 year parts and labor warranty**, up to the full 15 years on complete home wraps, plus a 20 to 30 year expected lifespan
 
 The track mounts cleanly along your roofline and color-matches your trim. During the day, no one knows it's there. At night, your home becomes the one everyone on the street notices.
 
