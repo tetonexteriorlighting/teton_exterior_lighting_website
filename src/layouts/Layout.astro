@@ -10,7 +10,7 @@ interface Props {
 
 const {
   title,
-  description = 'Teton Exterior Lighting installs permanent LED lighting for homes across Idaho Falls, Jackson Hole, Salt Lake City, Boise, and the surrounding region. 3× brighter than DIY, 20–30 year lifespan, fully app-controlled.',
+  description = 'Teton Exterior Lighting installs permanent LED lighting for homes across Idaho Falls, Jackson Hole, and the surrounding region. 3× brighter than DIY, 20–30 year lifespan, fully app-controlled.',
   ogImage = '/images/og-image.jpg',
   noindex = false,
 } = Astro.props;
@@ -21,7 +21,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: 'Teton Exterior Lighting',
-  description: 'Permanent LED exterior lighting installation based in Idaho Falls, ID. Serving Southeast Idaho, Jackson Hole WY, Salt Lake City UT, Boise ID, and the surrounding region.',
+  description: 'Permanent LED exterior lighting installation based in Idaho Falls, ID. Serving Southeast Idaho, Jackson Hole WY, and the surrounding region.',
   telephone: '+12085579009',
   address: {
     '@type': 'PostalAddress',
@@ -32,8 +32,6 @@ const jsonLd = {
   areaServed: [
     { '@type': 'City', name: 'Idaho Falls', containedInPlace: { '@type': 'State', name: 'Idaho' } },
     { '@type': 'City', name: 'Jackson Hole', containedInPlace: { '@type': 'State', name: 'Wyoming' } },
-    { '@type': 'City', name: 'Salt Lake City', containedInPlace: { '@type': 'State', name: 'Utah' } },
-    { '@type': 'City', name: 'Boise', containedInPlace: { '@type': 'State', name: 'Idaho' } },
     { '@type': 'City', name: 'Pocatello', containedInPlace: { '@type': 'State', name: 'Idaho' } },
     { '@type': 'City', name: 'Rexburg', containedInPlace: { '@type': 'State', name: 'Idaho' } },
     { '@type': 'City', name: 'Twin Falls', containedInPlace: { '@type': 'State', name: 'Idaho' } },

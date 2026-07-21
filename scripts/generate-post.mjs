@@ -94,7 +94,7 @@ async function main() {
 
   const topicContext = customTopic
     ? `Write about this specific topic: "${customTopic}"`
-    : `Choose a topic relevant to ${season} for homeowners in the Intermountain West (Idaho Falls, Jackson Hole, Salt Lake City, Boise, Pocatello, Rexburg). Pick something a homeowner would actually search for this time of year.`;
+    : `Choose a topic relevant to ${season} for homeowners in the Intermountain West (Idaho Falls, Jackson Hole, Pocatello, Rexburg). Pick something a homeowner would actually search for this time of year.`;
 
   console.log(`\nGenerating ${season} blog post${customTopic ? ` on "${customTopic}"` : ''}...`);
 
@@ -105,7 +105,7 @@ About the company:
 - 3x brighter than DIY systems, 16+ million colors, individually addressable LEDs
 - 20-30 year lifespan, 5-year product warranty
 - Fully app-controlled (any color, any schedule, any occasion)
-- Serves: Idaho Falls, Rexburg, Pocatello, Jackson Hole WY, Salt Lake City UT, Boise ID, Twin Falls ID
+- Serves: Idaho Falls, Rexburg, Pocatello, Jackson Hole WY, Twin Falls ID
 - Phone: (208) 557-9009
 - Website: tetonexteriorlighting.com
 - ShowHome certified partner

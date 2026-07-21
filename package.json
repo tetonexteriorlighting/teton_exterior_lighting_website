@@ -9,11 +9,12 @@
     "seo-pipeline": "node scripts/run-pipeline.mjs",
     "generate-post": "node scripts/generate-post.mjs",
     "process-photos": "node scripts/process-photos.mjs",
-    "build-tools": "node scripts/build-tools.mjs"
+    "build-tools": "node scripts/build-tools.mjs",
+    "qb": "node scripts/qb-assistant.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.55.1",
-    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/sitemap": "3.5.1",
     "astro": "^4.16.0"
   },
   "devDependencies": {
