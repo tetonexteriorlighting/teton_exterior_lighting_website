@@ -1,7 +1,7 @@
 ---
 title: "The Customer Care Behind Every Teton Install"
 description: "What customer support actually looks like with Teton Exterior Lighting, from your first quote to years after your permanent lights go up."
-pubDate: "2026-07-21"
+pubDate: "2026-07-29"
 tags: ["customer experience", "idaho falls", "permanent led lighting", "customer service"]
 heroImage: "/images/patriotic-permanent-led-zone-lighting-two-story-home.jpg"
 heroAlt: "Two-story home with red, white, and blue zone-controlled permanent LED lighting across each gable and side"

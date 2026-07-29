@@ -1,7 +1,7 @@
 ---
 title: "Why We're Not the Cheapest Permanent Lighting Company"
 description: "We're not the cheapest permanent LED lighting company in Idaho Falls, and we're fine with that. Here's what our customers actually pay for."
-pubDate: "2026-07-20"
+pubDate: "2026-05-15"
 tags: ["permanent led lighting", "idaho falls", "customer experience", "showhome lighting", "custom lighting design"]
 heroImage: "/images/permanent-led-trim-lights-warm-white.jpg"
 heroAlt: "Warm white permanent LED roofline trim lights glowing on a two-story Idaho Falls home at dusk"

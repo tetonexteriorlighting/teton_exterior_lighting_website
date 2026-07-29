@@ -1,7 +1,7 @@
 ---
 title: "Permanent LED Lighting for Summer Nights in Idaho Falls"
 description: "Make summer evenings unforgettable with permanent LED lighting in Idaho Falls. ShowHome certified, app-controlled, and built to last 20 to 30 years."
-pubDate: "2026-07-20"
+pubDate: "2026-06-18"
 tags: ["permanent led lighting", "idaho falls", "summer outdoor lighting", "showhome lighting", "backyard entertaining"]
 heroImage: "/images/warm-white-year-round-roofline-led-lights.jpg"
 heroAlt: "Warm white year-round permanent LED roofline lights on home exterior at summer dusk"
