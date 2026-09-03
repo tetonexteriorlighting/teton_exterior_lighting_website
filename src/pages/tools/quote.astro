@@ -1,0 +1,838 @@
+---
+import Layout from '../../layouts/Layout.astro'
+---
+
+<Layout
+  title="Quote Builder · Teton Exterior Lighting"
+  description="Internal quote builder for Teton Exterior Lighting installers."
+  noindex={true}
+>
+  <div class="qb">
+    <!-- ── Header ── -->
+    <header class="qb-header">
+      <a href="/tools/" class="qb-logo-link">
+        <img src="/images/logo.png" alt="Teton Exterior Lighting" class="qb-logo" />
+      </a>
+      <div class="qb-title-block">
+        <h1>Quote Builder</h1>
+        <p>For jobs written up without HCP access</p>
+      </div>
+      <div class="qb-header-actions">
+        <button id="newQuoteBtn" class="btn-ghost" type="button">New Quote</button>
+        <button id="downloadBtn" class="btn-gold" type="button">⬇ Download PDF</button>
+      </div>
+    </header>
+
+    <div id="draftNotice" class="qb-draft-notice" hidden>
+      Restored your last unsaved quote. <button id="dismissDraft" type="button">Dismiss</button>
+    </div>
+
+    <main class="qb-main">
+      <!-- ── Customer Information ── -->
+      <section class="qb-card">
+        <h2>Customer Information</h2>
+        <div class="qb-grid qb-grid-2">
+          <label class="qb-field">
+            <span>First Name</span>
+            <input id="custFirst" type="text" placeholder="Jane" />
+          </label>
+          <label class="qb-field">
+            <span>Last Name</span>
+            <input id="custLast" type="text" placeholder="Doe" />
+          </label>
+          <label class="qb-field">
+            <span>Phone</span>
+            <input id="custPhone" type="tel" placeholder="(208) 555-0100" />
+          </label>
+          <label class="qb-field">
+            <span>Email</span>
+            <input id="custEmail" type="email" placeholder="jane@example.com" />
+          </label>
+          <label class="qb-field qb-span-2">
+            <span>Address</span>
+            <textarea id="custAddress" rows="2" placeholder="123 Main St, Idaho Falls, ID 83401"></textarea>
+          </label>
+        </div>
+      </section>
+
+      <!-- ── Area Sections ── -->
+      <section class="qb-card">
+        <div class="qb-card-head">
+          <h2>Area Sections</h2>
+          <span id="areaSubtotalTag" class="qb-tag">$0.00</span>
+        </div>
+        <div class="qb-table-wrap">
+          <div class="qb-table-header qb-areas-cols">
+            <span>Part of House</span>
+            <span>Footage</span>
+            <span>Track Color</span>
+            <span>$ / ft</span>
+            <span>Warranty Tier</span>
+            <span>Line Total</span>
+            <span></span>
+          </div>
+          <div id="areaRows"></div>
+        </div>
+        <button id="addAreaBtn" class="btn-add" type="button">+ Add Area Section</button>
+      </section>
+
+      <!-- ── Misc Items ── -->
+      <section class="qb-card">
+        <div class="qb-card-head">
+          <h2>Misc Items <span class="qb-hint">Controllers, landscape fixtures, etc.</span></h2>
+          <span id="miscSubtotalTag" class="qb-tag">$0.00</span>
+        </div>
+        <div class="qb-table-wrap">
+          <div class="qb-table-header qb-misc-cols">
+            <span>Description</span>
+            <span>Qty</span>
+            <span>Cost Each</span>
+            <span>Line Total</span>
+            <span></span>
+          </div>
+          <div id="miscRows"></div>
+        </div>
+        <button id="addMiscBtn" class="btn-add" type="button">+ Add Item</button>
+      </section>
+
+      <!-- ── Adjustments & Payment ── -->
+      <section class="qb-card">
+        <h2>Adjustments &amp; Payment</h2>
+        <div class="qb-grid qb-grid-2">
+          <label class="qb-field">
+            <span>Waste %</span>
+            <input id="wastePct" type="number" min="0" max="100" step="0.5" value="5" />
+          </label>
+          <label class="qb-field">
+            <span>Deposit % <em id="depositCalc">($0.00)</em></span>
+            <input id="depositPct" type="number" min="0" max="100" step="1" value="50" />
+          </label>
+          <label class="qb-field qb-span-2">
+            <span>Payment Terms</span>
+            <textarea id="paymentTerms" rows="2"></textarea>
+          </label>
+          <label class="qb-field qb-span-2">
+            <span>Notes</span>
+            <textarea id="notes" rows="3" placeholder="Anything else the customer should know…"></textarea>
+          </label>
+        </div>
+      </section>
+
+      <!-- ── Totals ── -->
+      <section class="qb-card qb-totals">
+        <h2>Totals</h2>
+        <div class="qb-totals-rows">
+          <div class="qb-totals-row"><span>Area Sections Subtotal</span><span id="tArea">$0.00</span></div>
+          <div class="qb-totals-row"><span>Waste (<span id="tWastePct">5</span>%)</span><span id="tWaste">$0.00</span></div>
+          <div class="qb-totals-row"><span>Misc Items Subtotal</span><span id="tMisc">$0.00</span></div>
+          <div class="qb-totals-row qb-totals-grand"><span>Grand Total</span><span id="tGrand">$0.00</span></div>
+          <div class="qb-totals-row"><span>Deposit Due (<span id="tDepositPct">50</span>%)</span><span id="tDeposit">$0.00</span></div>
+          <div class="qb-totals-row"><span>Balance Due at Completion</span><span id="tBalance">$0.00</span></div>
+        </div>
+      </section>
+
+      <button id="downloadBtnBottom" class="btn-gold btn-lg" type="button">⬇ Download PDF</button>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  .qb {
+    min-height: 100vh;
+    background: #090910;
+    color: #e2e8f0;
+    font-family: system-ui, sans-serif;
+  }
+
+  /* ── Header ── */
+  .qb-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(9, 9, 16, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .qb-logo-link { display: flex; align-items: center; shrink: 0; }
+  .qb-logo { height: 36px; opacity: 0.9; }
+  .qb-title-block { flex: 1; min-width: 0; }
+  .qb-title-block h1 { font-size: 1.05rem; font-weight: 700; color: #f8fafc; margin: 0; }
+  .qb-title-block p { font-size: 0.75rem; color: #64748b; margin: 0; }
+  .qb-header-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
+
+  .qb-draft-notice {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    background: rgba(251, 191, 36, 0.1);
+    color: #fbbf24;
+    font-size: 0.8rem;
+    border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+  }
+  .qb-draft-notice button {
+    background: none;
+    border: 1px solid rgba(251, 191, 36, 0.4);
+    color: #fbbf24;
+    border-radius: 6px;
+    padding: 0.15rem 0.6rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+  }
+
+  /* ── Buttons ── */
+  .btn-gold, .btn-ghost, .btn-add {
+    font: inherit;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .btn-gold {
+    background: linear-gradient(135deg, #7c3aed, #fbbf24);
+    color: #0a0a0a;
+    border: none;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.85rem;
+    box-shadow: 0 0 16px rgba(251, 191, 36, 0.25);
+  }
+  .btn-gold:hover { box-shadow: 0 0 24px rgba(251, 191, 36, 0.4); }
+  .btn-gold.btn-lg { padding: 0.85rem 1.5rem; font-size: 0.95rem; display: block; margin: 0 auto 3rem; }
+  .btn-ghost {
+    background: rgba(255, 255, 255, 0.05);
+    color: #94a3b8;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.55rem 1rem;
+    font-size: 0.85rem;
+  }
+  .btn-ghost:hover { background: rgba(255, 255, 255, 0.09); color: #e2e8f0; }
+  .btn-add {
+    background: rgba(139, 92, 246, 0.12);
+    color: #c4b5fd;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    padding: 0.5rem 1rem;
+    font-size: 0.82rem;
+    margin-top: 0.75rem;
+  }
+  .btn-add:hover { background: rgba(139, 92, 246, 0.2); }
+  .btn-remove {
+    background: transparent;
+    border: none;
+    color: #475569;
+    cursor: pointer;
+    font-size: 0.95rem;
+    padding: 0.25rem;
+    border-radius: 6px;
+  }
+  .btn-remove:hover { color: #f87171; background: rgba(248, 113, 113, 0.1); }
+
+  /* ── Main / cards ── */
+  .qb-main { max-width: 980px; margin: 0 auto; padding: 1.5rem 1.5rem 2rem; }
+  .qb-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .qb-card h2 { font-size: 0.95rem; font-weight: 700; color: #f8fafc; margin: 0 0 1rem; }
+  .qb-card-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 1rem; }
+  .qb-card-head h2 { margin: 0; }
+  .qb-hint { font-size: 0.72rem; font-weight: 400; color: #475569; margin-left: 0.5rem; }
+  .qb-tag {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.08);
+    border: 1px solid rgba(251, 191, 36, 0.2);
+    border-radius: 999px;
+    padding: 0.15rem 0.7rem;
+  }
+
+  /* ── Fields ── */
+  .qb-grid { display: grid; gap: 0.9rem; }
+  .qb-grid-2 { grid-template-columns: 1fr 1fr; }
+  .qb-span-2 { grid-column: 1 / -1; }
+  .qb-field { display: flex; flex-direction: column; gap: 0.35rem; }
+  .qb-field span {
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #64748b;
+  }
+  .qb-field span em { color: #a78bfa; font-style: normal; font-weight: 500; text-transform: none; letter-spacing: 0; }
+  .qb-field input,
+  .qb-field textarea {
+    font: inherit;
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.55rem 0.7rem;
+    color: #e2e8f0;
+    resize: vertical;
+  }
+  .qb-field input:focus, .qb-field textarea:focus {
+    outline: none;
+    border-color: rgba(251, 191, 36, 0.5);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.12);
+  }
+
+  /* ── Tables (area / misc rows) ── */
+  .qb-table-wrap { overflow-x: auto; }
+  .qb-table-header, .qb-row {
+    display: grid;
+    gap: 0.6rem;
+    align-items: center;
+    min-width: 640px;
+  }
+  .qb-areas-cols { grid-template-columns: 1.6fr 0.8fr 1fr 0.8fr 1.2fr 1fr 32px; }
+  .qb-misc-cols  { grid-template-columns: 2fr 0.7fr 1fr 1fr 32px; }
+  .qb-table-header {
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #475569;
+    padding: 0 0 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .qb-row { padding: 0.4rem 0; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
+  .qb-row input {
+    width: 100%;
+    font: inherit;
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    padding: 0.4rem 0.55rem;
+    color: #e2e8f0;
+  }
+  .qb-row input:focus {
+    outline: none;
+    border-color: rgba(251, 191, 36, 0.5);
+  }
+  .qb-row-total { font-family: monospace; font-size: 0.85rem; color: #94a3b8; text-align: right; padding-right: 0.4rem; }
+  .qb-empty-row { color: #334155; font-size: 0.8rem; font-style: italic; padding: 0.6rem 0; }
+
+  /* ── Totals ── */
+  .qb-totals-rows { display: flex; flex-direction: column; gap: 0.5rem; }
+  .qb-totals-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    color: #94a3b8;
+    padding: 0.3rem 0;
+  }
+  .qb-totals-row span:last-child { font-family: monospace; }
+  .qb-totals-grand {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0.3rem 0;
+    padding: 0.6rem 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #f8fafc;
+  }
+  .qb-totals-grand span:last-child { color: #fbbf24; }
+
+  @media (max-width: 640px) {
+    .qb-grid-2 { grid-template-columns: 1fr; }
+    .qb-header { flex-wrap: wrap; }
+  }
+</style>
+
+<script>
+  import { jsPDF } from 'jspdf'
+  import autoTable from 'jspdf-autotable'
+
+  // ── Types ──────────────────────────────────────────────────────────────────
+  interface AreaRow { id: number; part: string; footage: number; trackColor: string; pricePerFt: number; warranty: string }
+  interface MiscRow { id: number; description: string; qty: number; cost: number }
+
+  // ── State ──────────────────────────────────────────────────────────────────
+  let nextId = 1
+  const uid = () => nextId++
+
+  let customer = { firstName: '', lastName: '', phone: '', email: '', address: '' }
+  let areas: AreaRow[] = [mkArea()]
+  let misc: MiscRow[] = []
+  let wastePct = 5
+  let depositPct = 50
+  let paymentTerms = defaultPaymentTerms(50)
+  let notes = ''
+  let paymentTermsDirty = false
+
+  function mkArea(): AreaRow {
+    return { id: uid(), part: '', footage: 0, trackColor: '', pricePerFt: 0, warranty: '' }
+  }
+  function mkMisc(): MiscRow {
+    return { id: uid(), description: '', qty: 1, cost: 0 }
+  }
+  function defaultPaymentTerms(deposit: number) {
+    return `${deposit}% deposit due to schedule installation. Remaining ${100 - deposit}% due upon completion.`
+  }
+
+  const fmt = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+
+  // ── DOM refs ───────────────────────────────────────────────────────────────
+  const $ = (id: string) => document.getElementById(id) as HTMLElement
+  const areaRowsEl = $('areaRows')
+  const miscRowsEl = $('miscRows')
+
+  // ── Area rows ──────────────────────────────────────────────────────────────
+  function renderAreaRows() {
+    areaRowsEl.innerHTML = ''
+    if (areas.length === 0) {
+      const p = document.createElement('p')
+      p.className = 'qb-empty-row'
+      p.textContent = 'No area sections yet.'
+      areaRowsEl.appendChild(p)
+    }
+    areas.forEach(row => areaRowsEl.appendChild(buildAreaRow(row)))
+    recalc()
+  }
+
+  function buildAreaRow(row: AreaRow) {
+    const el = document.createElement('div')
+    el.className = 'qb-row qb-areas-cols'
+
+    const partInput = inputEl('text', row.part, 'e.g. Front Elevation', v => { row.part = v; save() })
+    const footageInput = inputEl('number', String(row.footage || ''), '0', v => { row.footage = parseFloat(v) || 0; updateAreaLineTotal(row, total) })
+    const colorInput = inputEl('text', row.trackColor, 'White', v => { row.trackColor = v; save() }, 'trackColors')
+    const priceInput = inputEl('number', String(row.pricePerFt || ''), '0.00', v => { row.pricePerFt = parseFloat(v) || 0; updateAreaLineTotal(row, total) }, undefined, '0.01')
+    const warrantyInput = inputEl('text', row.warranty, 'Standard', v => { row.warranty = v; save() }, 'warrantyTiers')
+
+    const total = document.createElement('span')
+    total.className = 'qb-row-total'
+    const removeBtn = document.createElement('button')
+    removeBtn.className = 'btn-remove'
+    removeBtn.type = 'button'
+    removeBtn.textContent = '✕'
+    removeBtn.onclick = () => { areas = areas.filter(a => a.id !== row.id); renderAreaRows(); save() }
+
+    el.append(partInput, footageInput, colorInput, priceInput, warrantyInput, total, removeBtn)
+    total.textContent = fmt(row.footage * row.pricePerFt) // initial display only — must not trigger save()
+    return el
+  }
+
+  function updateAreaLineTotal(row: AreaRow, totalEl: HTMLElement) {
+    totalEl.textContent = fmt(row.footage * row.pricePerFt)
+    recalc()
+    save()
+  }
+
+  // ── Misc rows ──────────────────────────────────────────────────────────────
+  function renderMiscRows() {
+    miscRowsEl.innerHTML = ''
+    if (misc.length === 0) {
+      const p = document.createElement('p')
+      p.className = 'qb-empty-row'
+      p.textContent = 'No misc items yet.'
+      miscRowsEl.appendChild(p)
+    }
+    misc.forEach(row => miscRowsEl.appendChild(buildMiscRow(row)))
+    recalc()
+  }
+
+  function buildMiscRow(row: MiscRow) {
+    const el = document.createElement('div')
+    el.className = 'qb-row qb-misc-cols'
+
+    const descInput = inputEl('text', row.description, 'e.g. WiFi Controller', v => { row.description = v; save() })
+    const qtyInput = inputEl('number', String(row.qty || ''), '1', v => { row.qty = parseFloat(v) || 0; updateMiscLineTotal(row, total) })
+    const costInput = inputEl('number', String(row.cost || ''), '0.00', v => { row.cost = parseFloat(v) || 0; updateMiscLineTotal(row, total) }, undefined, '0.01')
+
+    const total = document.createElement('span')
+    total.className = 'qb-row-total'
+    const removeBtn = document.createElement('button')
+    removeBtn.className = 'btn-remove'
+    removeBtn.type = 'button'
+    removeBtn.textContent = '✕'
+    removeBtn.onclick = () => { misc = misc.filter(m => m.id !== row.id); renderMiscRows(); save() }
+
+    el.append(descInput, qtyInput, costInput, total, removeBtn)
+    total.textContent = fmt(row.qty * row.cost) // initial display only — must not trigger save()
+    return el
+  }
+
+  function updateMiscLineTotal(row: MiscRow, totalEl: HTMLElement) {
+    totalEl.textContent = fmt(row.qty * row.cost)
+    recalc()
+    save()
+  }
+
+  // ── Shared input builder ─────────────────────────────────────────────────
+  function inputEl(type: string, value: string, placeholder: string, onInput: (v: string) => void, list?: string, step?: string) {
+    const input = document.createElement('input')
+    input.type = type
+    input.value = value
+    input.placeholder = placeholder
+    if (list) input.setAttribute('list', list)
+    if (step) input.step = step
+    if (type === 'number') input.min = '0'
+    input.addEventListener('input', () => onInput(input.value))
+    return input
+  }
+
+  // ── Totals ─────────────────────────────────────────────────────────────────
+  // Rounds to the cent at each step (rather than only when displayed) so a
+  // rounded Deposit + rounded Balance always add back up to Grand Total.
+  const toCents = (n: number) => Math.round(n * 100) / 100
+
+  function recalc() {
+    const areaSubtotal = toCents(areas.reduce((s, a) => s + a.footage * a.pricePerFt, 0))
+    const wasteAmount = toCents(areaSubtotal * (wastePct / 100))
+    const miscSubtotal = toCents(misc.reduce((s, m) => s + m.qty * m.cost, 0))
+    const grandTotal = toCents(areaSubtotal + wasteAmount + miscSubtotal)
+    const depositAmount = toCents(grandTotal * (depositPct / 100))
+    const balanceAmount = toCents(grandTotal - depositAmount)
+
+    $('areaSubtotalTag').textContent = fmt(areaSubtotal)
+    $('miscSubtotalTag').textContent = fmt(miscSubtotal)
+    $('tArea').textContent = fmt(areaSubtotal)
+    $('tWaste').textContent = fmt(wasteAmount)
+    $('tWastePct').textContent = String(wastePct)
+    $('tMisc').textContent = fmt(miscSubtotal)
+    $('tGrand').textContent = fmt(grandTotal)
+    $('tDeposit').textContent = fmt(depositAmount)
+    $('tDepositPct').textContent = String(depositPct)
+    $('tBalance').textContent = fmt(balanceAmount)
+    ;($('depositCalc') as HTMLElement).textContent = `(${fmt(depositAmount)})`
+
+    return { areaSubtotal, wasteAmount, miscSubtotal, grandTotal, depositAmount, balanceAmount }
+  }
+
+  // ── Wire up static fields ────────────────────────────────────────────────
+  function bindText(id: string, get: () => string, set: (v: string) => void) {
+    const el = $(id) as HTMLInputElement | HTMLTextAreaElement
+    el.value = get()
+    el.addEventListener('input', () => { set(el.value); save() })
+  }
+
+  bindText('custFirst', () => customer.firstName, v => customer.firstName = v)
+  bindText('custLast', () => customer.lastName, v => customer.lastName = v)
+  bindText('custPhone', () => customer.phone, v => customer.phone = v)
+  bindText('custEmail', () => customer.email, v => customer.email = v)
+  bindText('custAddress', () => customer.address, v => customer.address = v)
+  bindText('notes', () => notes, v => notes = v)
+
+  const paymentTermsEl = $('paymentTerms') as HTMLTextAreaElement
+  paymentTermsEl.value = paymentTerms
+  paymentTermsEl.addEventListener('input', () => { paymentTerms = paymentTermsEl.value; paymentTermsDirty = true; save() })
+
+  const wasteInput = $('wastePct') as HTMLInputElement
+  wasteInput.value = String(wastePct)
+  wasteInput.addEventListener('input', () => { wastePct = parseFloat(wasteInput.value) || 0; recalc(); save() })
+
+  const depositInput = $('depositPct') as HTMLInputElement
+  depositInput.value = String(depositPct)
+  depositInput.addEventListener('input', () => {
+    depositPct = parseFloat(depositInput.value) || 0
+    if (!paymentTermsDirty) {
+      paymentTerms = defaultPaymentTerms(depositPct)
+      paymentTermsEl.value = paymentTerms
+    }
+    recalc()
+    save()
+  })
+
+  $('addAreaBtn').addEventListener('click', () => { areas.push(mkArea()); renderAreaRows(); save() })
+  $('addMiscBtn').addEventListener('click', () => { misc.push(mkMisc()); renderMiscRows(); save() })
+
+  // ── Datalists for autocomplete suggestions ──────────────────────────────
+  function addDatalist(id: string, options: string[]) {
+    const dl = document.createElement('datalist')
+    dl.id = id
+    options.forEach(o => { const opt = document.createElement('option'); opt.value = o; dl.appendChild(opt) })
+    document.body.appendChild(dl)
+  }
+  addDatalist('trackColors', ['White', 'Black', 'Bronze', 'Brown', 'Gray'])
+  addDatalist('warrantyTiers', ['Standard', 'Extended', 'Lifetime'])
+
+  // ── Draft persistence (localStorage) ────────────────────────────────────
+  const DRAFT_KEY = 'tel-quote-draft'
+  let saveTimer: ReturnType<typeof setTimeout> | null = null
+  function save() {
+    if (saveTimer) clearTimeout(saveTimer)
+    saveTimer = setTimeout(() => {
+      localStorage.setItem(DRAFT_KEY, JSON.stringify({ customer, areas, misc, wastePct, depositPct, paymentTerms, notes, paymentTermsDirty }))
+    }, 300)
+  }
+
+  function loadDraft() {
+    const raw = localStorage.getItem(DRAFT_KEY)
+    if (!raw) return false
+    try {
+      const d = JSON.parse(raw)
+      customer = d.customer ?? customer
+      areas = (d.areas ?? []).length ? d.areas : [mkArea()]
+      misc = d.misc ?? []
+      wastePct = d.wastePct ?? wastePct
+      depositPct = d.depositPct ?? depositPct
+      paymentTerms = d.paymentTerms ?? paymentTerms
+      notes = d.notes ?? notes
+      paymentTermsDirty = d.paymentTermsDirty ?? false
+      nextId = Math.max(1, ...[...areas, ...misc].map((r: { id: number }) => r.id + 1))
+      return true
+    } catch { return false }
+  }
+
+  function applyStateToInputs() {
+    ;($('custFirst') as HTMLInputElement).value = customer.firstName
+    ;($('custLast') as HTMLInputElement).value = customer.lastName
+    ;($('custPhone') as HTMLInputElement).value = customer.phone
+    ;($('custEmail') as HTMLInputElement).value = customer.email
+    ;($('custAddress') as HTMLTextAreaElement).value = customer.address
+    ;($('notes') as HTMLTextAreaElement).value = notes
+    ;(wasteInput).value = String(wastePct)
+    ;(depositInput).value = String(depositPct)
+    paymentTermsEl.value = paymentTerms
+  }
+
+  const hadDraft = loadDraft()
+  applyStateToInputs()
+  renderAreaRows()
+  renderMiscRows()
+  recalc()
+
+  if (hadDraft) {
+    const notice = $('draftNotice')
+    notice.hidden = false
+    $('dismissDraft').addEventListener('click', () => { notice.hidden = true })
+  }
+
+  // ── New Quote ────────────────────────────────────────────────────────────
+  $('newQuoteBtn').addEventListener('click', () => {
+    if (!confirm('Start a new quote? This clears everything currently on screen.')) return
+    localStorage.removeItem(DRAFT_KEY)
+    customer = { firstName: '', lastName: '', phone: '', email: '', address: '' }
+    areas = [mkArea()]
+    misc = []
+    wastePct = 5
+    depositPct = 50
+    paymentTerms = defaultPaymentTerms(50)
+    notes = ''
+    paymentTermsDirty = false
+    applyStateToInputs()
+    renderAreaRows()
+    renderMiscRows()
+    recalc()
+  })
+
+  // ── PDF generation ───────────────────────────────────────────────────────
+  // Draws the logo onto a small canvas before handing it to jsPDF — jsPDF's
+  // PNG handling can otherwise re-encode a source image as raw/uncompressed
+  // pixel data, ballooning a 40KB logo into a multi-megabyte PDF.
+  async function loadLogoThumbnail(url: string, size = 96): Promise<string> {
+    const img = new Image()
+    const loaded = new Promise<void>((resolve, reject) => {
+      img.onload = () => resolve()
+      img.onerror = () => reject(new Error('logo failed to load'))
+    })
+    img.src = url
+    await loaded
+    const canvas = document.createElement('canvas')
+    canvas.width = size
+    canvas.height = size
+    const ctx = canvas.getContext('2d')!
+    const scale = Math.min(size / img.naturalWidth, size / img.naturalHeight)
+    const w = img.naturalWidth * scale, h = img.naturalHeight * scale
+    ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h)
+    return canvas.toDataURL('image/png')
+  }
+
+  async function saveBlob(blob: Blob, suggestedName: string) {
+    const w = window as unknown as { showSaveFilePicker?: (opts: unknown) => Promise<FileSystemFileHandle> }
+    if (w.showSaveFilePicker) {
+      try {
+        const handle = await w.showSaveFilePicker({
+          suggestedName,
+          types: [{ description: 'PDF Document', accept: { 'application/pdf': ['.pdf'] } }],
+        })
+        const writable = await handle.createWritable()
+        await writable.write(blob)
+        await writable.close()
+        return
+      } catch (err) {
+        if ((err as Error).name === 'AbortError') return
+      }
+    }
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = suggestedName
+    a.click()
+    URL.revokeObjectURL(url)
+  }
+
+  async function buildAndDownloadPdf() {
+    const totals = recalc()
+    const doc = new jsPDF({ unit: 'pt', format: 'letter' })
+    const pageWidth = doc.internal.pageSize.getWidth()
+    const margin = 40
+    let y = 44
+
+    // Header — logo + company info (left), Quote title + date (right)
+    try {
+      const logo = await loadLogoThumbnail('/images/logo.png', 96)
+      doc.addImage(logo, 'PNG', margin, y - 14, 34, 34)
+    } catch { /* logo optional — skip if it can't be loaded */ }
+
+    doc.setFont('helvetica', 'bold')
+    doc.setFontSize(13)
+    doc.setTextColor(20, 20, 20)
+    doc.text('Teton Exterior Lighting', margin + 44, y)
+    doc.setFont('helvetica', 'normal')
+    doc.setFontSize(9)
+    doc.setTextColor(90, 90, 90)
+    doc.text('(208) 557-9009  ·  tetonexteriorlighting@gmail.com  ·  Idaho Falls, ID', margin + 44, y + 14)
+
+    doc.setFont('helvetica', 'bold')
+    doc.setFontSize(18)
+    doc.setTextColor(20, 20, 20)
+    doc.text('QUOTE', pageWidth - margin, y, { align: 'right' })
+    const today = new Date()
+    const quoteNo = `Q-${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}-${String(today.getHours()).padStart(2, '0')}${String(today.getMinutes()).padStart(2, '0')}`
+    doc.setFont('helvetica', 'normal')
+    doc.setFontSize(9)
+    doc.setTextColor(90, 90, 90)
+    doc.text(`Date: ${today.toLocaleDateString('en-US')}`, pageWidth - margin, y + 14, { align: 'right' })
+    doc.text(`Quote #: ${quoteNo}`, pageWidth - margin, y + 26, { align: 'right' })
+
+    y += 46
+    doc.setDrawColor(220, 220, 220)
+    doc.line(margin, y, pageWidth - margin, y)
+    y += 22
+
+    // Bill To
+    doc.setFont('helvetica', 'bold')
+    doc.setFontSize(10)
+    doc.setTextColor(20, 20, 20)
+    doc.text('Prepared For', margin, y)
+    y += 14
+    doc.setFont('helvetica', 'normal')
+    doc.setFontSize(9.5)
+    doc.setTextColor(60, 60, 60)
+    const custName = `${customer.firstName} ${customer.lastName}`.trim() || '—'
+    const custLines = [custName, customer.address, customer.phone, customer.email].filter(Boolean)
+    custLines.forEach(line => { doc.text(String(line), margin, y); y += 13 })
+
+    y += 8
+
+    // Area sections table
+    if (areas.length) {
+      autoTable(doc, {
+        startY: y,
+        margin: { left: margin, right: margin },
+        head: [['Part of House', 'Footage', 'Track Color', '$/ft', 'Warranty', 'Line Total']],
+        body: areas.map(a => [
+          a.part || '—',
+          a.footage ? `${a.footage} ft` : '—',
+          a.trackColor || '—',
+          a.pricePerFt ? fmt(a.pricePerFt) : '—',
+          a.warranty || '—',
+          fmt(a.footage * a.pricePerFt),
+        ]),
+        headStyles: { fillColor: [20, 20, 24], textColor: 255, fontSize: 8.5 },
+        bodyStyles: { fontSize: 9, textColor: [40, 40, 40] },
+        columnStyles: { 5: { halign: 'right' } },
+        theme: 'striped',
+      })
+      // @ts-expect-error - lastAutoTable is attached by the plugin at runtime
+      y = doc.lastAutoTable.finalY + 18
+    }
+
+    // Misc items table
+    if (misc.length) {
+      doc.setFont('helvetica', 'bold')
+      doc.setFontSize(10)
+      doc.setTextColor(20, 20, 20)
+      doc.text('Misc Items', margin, y)
+      y += 8
+      autoTable(doc, {
+        startY: y,
+        margin: { left: margin, right: margin },
+        head: [['Description', 'Qty', 'Cost Each', 'Line Total']],
+        body: misc.map(m => [m.description || '—', String(m.qty || 0), fmt(m.cost), fmt(m.qty * m.cost)]),
+        headStyles: { fillColor: [20, 20, 24], textColor: 255, fontSize: 8.5 },
+        bodyStyles: { fontSize: 9, textColor: [40, 40, 40] },
+        columnStyles: { 3: { halign: 'right' } },
+        theme: 'striped',
+      })
+      // @ts-expect-error - lastAutoTable is attached by the plugin at runtime
+      y = doc.lastAutoTable.finalY + 18
+    }
+
+    // Page-break guard before totals block
+    if (y > doc.internal.pageSize.getHeight() - 180) { doc.addPage(); y = 44 }
+
+    // Totals block (right-aligned)
+    const totalsRows: [string, string, boolean?][] = [
+      ['Area Sections Subtotal', fmt(totals.areaSubtotal)],
+      [`Waste (${wastePct}%)`, fmt(totals.wasteAmount)],
+      ['Misc Items Subtotal', fmt(totals.miscSubtotal)],
+      ['Grand Total', fmt(totals.grandTotal), true],
+      [`Deposit Due (${depositPct}%)`, fmt(totals.depositAmount)],
+      ['Balance Due at Completion', fmt(totals.balanceAmount)],
+    ]
+    const totalsX = pageWidth - margin
+    totalsRows.forEach(([label, value, bold]) => {
+      doc.setFont('helvetica', bold ? 'bold' : 'normal')
+      doc.setFontSize(bold ? 11 : 9.5)
+      doc.setTextColor(bold ? 20 : 70, bold ? 20 : 70, bold ? 20 : 70)
+      doc.text(label, totalsX - 130, y, { align: 'right' })
+      doc.text(value, totalsX, y, { align: 'right' })
+      y += bold ? 18 : 14
+      if (bold) {
+        doc.setDrawColor(220, 220, 220)
+        doc.line(totalsX - 220, y - 12, totalsX, y - 12)
+      }
+    })
+
+    y += 14
+
+    // Payment terms
+    if (paymentTerms.trim()) {
+      doc.setFont('helvetica', 'bold')
+      doc.setFontSize(10)
+      doc.setTextColor(20, 20, 20)
+      doc.text('Payment Terms', margin, y)
+      y += 14
+      doc.setFont('helvetica', 'normal')
+      doc.setFontSize(9.5)
+      doc.setTextColor(60, 60, 60)
+      const wrapped = doc.splitTextToSize(paymentTerms, pageWidth - margin * 2)
+      doc.text(wrapped, margin, y)
+      y += wrapped.length * 13 + 10
+    }
+
+    // Notes
+    if (notes.trim()) {
+      doc.setFont('helvetica', 'bold')
+      doc.setFontSize(10)
+      doc.setTextColor(20, 20, 20)
+      doc.text('Notes', margin, y)
+      y += 14
+      doc.setFont('helvetica', 'normal')
+      doc.setFontSize(9.5)
+      doc.setTextColor(60, 60, 60)
+      const wrapped = doc.splitTextToSize(notes, pageWidth - margin * 2)
+      doc.text(wrapped, margin, y)
+    }
+
+    const blob = doc.output('blob')
+    const safeName = (customer.lastName || 'customer').replace(/[^a-z0-9]/gi, '-').toLowerCase()
+    const dateStr = `${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}`
+    await saveBlob(blob, `quote-${safeName}-${dateStr}.pdf`)
+  }
+
+  $('downloadBtn').addEventListener('click', () => { buildAndDownloadPdf() })
+  $('downloadBtnBottom').addEventListener('click', () => { buildAndDownloadPdf() })
+</script>

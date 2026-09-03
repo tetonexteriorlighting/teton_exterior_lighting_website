@@ -15,7 +15,9 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.55.1",
     "@astrojs/sitemap": "3.5.1",
-    "astro": "^4.16.0"
+    "astro": "^4.16.0",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.8"
   },
   "devDependencies": {
     "sharp": "^0.34.5"
