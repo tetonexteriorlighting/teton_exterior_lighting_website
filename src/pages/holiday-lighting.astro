@@ -1,0 +1,417 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav    from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+const looks = [
+  { src: '/images/multicolor-permanent-led-outdoor-lights.jpg', alt: 'Multicolor permanent LED holiday lighting on Idaho Falls home roofline', title: 'Multicolor Magic', body: 'Every bulb, every color, all at once. The classic holiday showstopper.' },
+  { src: '/images/warm-white-year-round-roofline-led-lights.jpg', alt: 'Warm white permanent LED Christmas lighting on Idaho Falls home', title: 'Classic Warm White', body: 'Timeless and elegant. Looks just as good on Christmas Eve as it does in March.' },
+  { src: '/images/teal-smart-led-exterior-trim-lights.jpg', alt: 'Teal blue permanent LED winter lighting on two-story home exterior', title: 'Winter Frost Blue', body: 'Cool icy blue tones that turn your roofline into a winter wonderland.' },
+  { src: '/images/smart-led-roofline-trim-lights-purple.jpg', alt: 'Purple permanent LED holiday lighting on Idaho Falls home roofline', title: 'Royal Purple', body: 'A rich, unexpected look that still stands out down the whole block.' },
+  { src: '/images/pink-permanent-led-trim-lights-home.jpg', alt: 'Pink and purple permanent LED holiday lighting on two-story home', title: 'Festive Pink', body: 'Playful and bright. A favorite for families who want something different.' },
+  { src: '/images/patriotic-permanent-led-zone-lighting-two-story-home.jpg', alt: 'Zone-controlled red white and blue permanent LED lighting on two-story home', title: 'Custom Zone Control', body: 'Run a different look on every side of your home, all from one app.' },
+];
+---
+
+<Layout
+  title="Christmas & Holiday Lighting | Teton Exterior Lighting | Idaho Falls, ID"
+  description="Permanent Christmas and holiday LED lighting for Idaho Falls homes. Book now to be lit up well before the season, no ladders, no hassle, every year."
+>
+  <Nav />
+
+  <!-- ===================================================
+       HERO
+  =================================================== -->
+  <section class="holiday-hero" id="holiday-hero">
+    <div class="holiday-hero-bg" aria-hidden="true"></div>
+    <div class="holiday-hero-overlay" aria-hidden="true"></div>
+    <div class="container holiday-hero-content">
+      <span class="eyebrow">Christmas &amp; Holiday Lighting · Idaho Falls &amp; the Surrounding Region</span>
+      <h1 class="section-title">Hang Your Christmas Lights<br /><span class="gold">Once. Ever.</span></h1>
+      <p class="section-body">
+        No more ladders in the cold, no more tangled strands, no more lights that die halfway through December.
+        One permanent install gives you a full holiday light show every year, controlled from your phone.
+      </p>
+      <div class="hero-ctas">
+        <a href="/contact" class="btn btn-gold btn-lg">Get My Free Quote</a>
+        <a href="#looks" class="btn btn-outline btn-lg">See Holiday Looks</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       URGENCY BANNER
+  =================================================== -->
+  <section class="urgency-banner">
+    <div class="container urgency-inner reveal">
+      <span class="urgency-icon">🎄</span>
+      <p>
+        <strong>Book now to be lit up well before the holidays.</strong>
+        Installs booked in the fall avoid the December waitlist entirely, and you'll have your lights on
+        long before your neighbors start untangling theirs.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       WHY PERMANENT FOR THE HOLIDAYS
+  =================================================== -->
+  <section class="why-holiday" id="why">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow center">Why Permanent Beats Hanging Lights</span>
+        <div class="gold-rule center"></div>
+        <h2 class="section-title" style="text-align:center">Never Climb a Ladder<br />in December Again</h2>
+      </div>
+      <div class="why-grid">
+        {[
+          { icon: '🪜', title: 'No More Ladders', body: 'Our crew installs once, professionally. You never have to balance on a ladder in freezing weather again.' },
+          { icon: '📦', title: 'No More Storage Bins', body: 'No hauling totes out of the garage every November and back in every January. Your lights just live on your roofline.' },
+          { icon: '🔌', title: 'No More Dead Strands', body: 'Individually addressable, commercial-grade LEDs replace the string lights that burn out halfway through the season.' },
+          { icon: '📱', title: 'Every Holiday, One App', body: 'Christmas one night, New Year\'s the next, back to everyday warm white in January. All from your phone.' },
+        ].map(c => (
+          <div class="why-card reveal">
+            <div class="why-icon">{c.icon}</div>
+            <h3>{c.title}</h3>
+            <p>{c.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       HOLIDAY LOOKS GALLERY
+  =================================================== -->
+  <section class="looks-section" id="looks">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow center">Real Homes, Real Installs</span>
+        <div class="gold-rule center"></div>
+        <h2 class="section-title" style="text-align:center">Pick Your Holiday Look</h2>
+        <p class="section-body center" style="margin-top:0.5rem">
+          Every look below is app-controlled and ready to switch in seconds. Mix and match for your own home.
+        </p>
+      </div>
+      <div class="looks-grid">
+        {looks.map(l => (
+          <div class="look-card reveal">
+            <div class="look-img-wrap">
+              <img src={l.src} alt={l.alt} loading="lazy" />
+            </div>
+            <div class="look-body">
+              <h3>{l.title}</h3>
+              <p>{l.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       TIMELINE
+  =================================================== -->
+  <section class="timeline-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow center">Simple Process</span>
+        <div class="gold-rule center"></div>
+        <h2 class="section-title" style="text-align:center">From Quote to Lit Up<br />Before the Season Starts</h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <h3>Get Your Free Quote</h3>
+          <p>We measure your roofline, walk through colors and looks, and give you a clear, no-pressure quote.</p>
+        </div>
+        <div class="step-arrow reveal">→</div>
+        <div class="step reveal">
+          <div class="step-num">02</div>
+          <h3>We Install Before the Rush</h3>
+          <p>Booking now means your install happens on our schedule, not squeezed in during the busiest week of the year.</p>
+        </div>
+        <div class="step-arrow reveal">→</div>
+        <div class="step reveal">
+          <div class="step-num">03</div>
+          <h3>Flip It On for the Holidays</h3>
+          <p>Pick your holiday look in the app and you're done. Every year after, it's already there waiting for you.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       REVIEWS
+  =================================================== -->
+  <section class="holiday-reviews">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow center">What Homeowners Are Saying</span>
+        <div class="gold-rule center"></div>
+        <h2 class="section-title" style="text-align:center">Trusted Across Idaho Falls</h2>
+        <a href="https://www.google.com/maps?cid=8379863443859849851" target="_blank" rel="noopener" class="google-rating-link">
+          ⭐⭐⭐⭐⭐ 5.0 rating · 46 Google Reviews
+        </a>
+      </div>
+      <div class="testi-grid">
+        {[
+          { initial: 'M', name: 'Mark Bodily', quote: 'Awesome lighting. Service is top notch! They have a great product and are extremely knowledgeable and customer oriented. Jayden was terrific to work with. I highly recommend!!!' },
+          { initial: 'J', name: 'Jennifer Hewit', quote: "Highly recommend Teton Exterior Lighting! He made sure we were getting the highest quality product, took us through a demo of the app, made sure they were installed properly and that we're are happy." },
+        ].map(t => (
+          <div class="testi-card reveal">
+            <div class="stars">⭐⭐⭐⭐⭐</div>
+            <p class="quote">"{t.quote}"</p>
+            <div class="testi-author">
+              <div class="avatar">{t.initial}</div>
+              <div><strong>{t.name}</strong></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       FAQ
+  =================================================== -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="eyebrow center">Common Questions</span>
+        <div class="gold-rule center"></div>
+        <h2 class="section-title" style="text-align:center">Holiday Lighting FAQ</h2>
+      </div>
+      <div class="faq-list">
+        {[
+          { q: 'Will my lights be installed in time for Christmas?', a: 'If you book in fall, yes, comfortably. Once the ground freezes and the holiday rush hits, scheduling gets tight for everyone in this business. The earlier you book, the more flexibility we have.' },
+          { q: 'Does cold weather affect the lights or the install?', a: 'No. ShowHome systems are built and tested for Idaho winters. The track and fixtures are weatherproofed for snow, ice, and extreme cold. Installation itself can happen right up until the ground freezes solid.' },
+          { q: 'Can I use the same lights for Christmas, Halloween, and every day?', a: "Absolutely. That's the whole point of going permanent. Switch from warm white in November, to a full holiday show in December, to your everyday look in January, all in the same app." },
+          { q: 'Do you offer financing for holiday installs?', a: 'Yes. We offer financing so the upgrade doesn\'t have to be one large upfront cost. Ask about it when you request your quote.' },
+        ].map(f => (
+          <div class="faq-item reveal">
+            <h3>{f.q}</h3>
+            <p>{f.a}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       FINAL CTA
+  =================================================== -->
+  <section class="holiday-cta">
+    <div class="container cta-inner reveal">
+      <div class="cta-text">
+        <h2>Ready to Be Done Hanging Lights?</h2>
+        <p>Free quote. No obligation. Book now and have it done well before the holiday rush.</p>
+      </div>
+      <a href="/contact" class="btn btn-gold btn-lg">Get My Free Quote →</a>
+    </div>
+  </section>
+
+  <Footer />
+</Layout>
+
+<style>
+  /* ---- Hero ---- */
+  .holiday-hero {
+    position: relative;
+    min-height: 78vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .holiday-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('/images/permanent-outdoor-holiday-lighting-dusk.jpg');
+    background-size: cover;
+    background-position: center 55%;
+  }
+  .holiday-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(8,8,8,0.90) 0%, rgba(8,8,8,0.55) 100%);
+  }
+  .holiday-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 160px 24px 90px;
+    max-width: 760px;
+  }
+  .holiday-hero-content .section-title {
+    font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+    margin-bottom: 1.25rem;
+  }
+  .holiday-hero-content .gold { color: var(--accent); }
+  .holiday-hero-content .section-body { max-width: 620px; }
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  /* ---- Urgency banner ---- */
+  .urgency-banner {
+    background: var(--surface3);
+    border-bottom: 1px solid var(--border-gold);
+    padding: 1.75rem 0;
+  }
+  .urgency-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .urgency-icon { font-size: 1.8rem; flex-shrink: 0; }
+  .urgency-inner p { font-size: 0.95rem; color: var(--silver); line-height: 1.6; }
+  .urgency-inner strong { color: var(--white); }
+
+  /* ---- Why grid (matches homepage pattern) ---- */
+  .why-holiday { background: var(--surface); padding: var(--section-pad); }
+  .section-header { margin-bottom: 3.5rem; }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+  .why-card {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    transition: all var(--transition);
+  }
+  .why-card:hover { border-color: var(--border-gold); transform: translateY(-3px); }
+  .why-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .why-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .why-card p { font-size: 0.9rem; color: var(--silver); line-height: 1.7; }
+
+  /* ---- Looks gallery ---- */
+  .looks-section { background: var(--surface2); padding: var(--section-pad); }
+  .looks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .look-card {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--transition);
+  }
+  .look-card:hover { border-color: var(--border-gold); transform: translateY(-4px); }
+  .look-img-wrap { aspect-ratio: 4 / 3; overflow: hidden; }
+  .look-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .look-body { padding: 1.5rem; }
+  .look-body h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .look-body p { font-size: 0.88rem; color: var(--silver); line-height: 1.6; }
+
+  /* ---- Timeline / steps (matches homepage) ---- */
+  .timeline-section { background: var(--surface); padding: var(--section-pad); }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .step { text-align: center; }
+  .step-num {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .step h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .step p { font-size: 0.88rem; color: var(--silver); line-height: 1.6; }
+  .step-arrow { font-size: 1.5rem; color: var(--muted); }
+
+  /* ---- Reviews (matches homepage testimonials) ---- */
+  .holiday-reviews { background: var(--surface2); padding: var(--section-pad); }
+  .google-rating-link {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--silver);
+    text-decoration: none;
+  }
+  .google-rating-link:hover { color: var(--accent); }
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .testi-card {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+  }
+  .testi-card .stars { margin-bottom: 0.75rem; }
+  .testi-card .quote { font-size: 0.92rem; color: var(--silver); line-height: 1.7; margin-bottom: 1.25rem; }
+  .testi-author { display: flex; align-items: center; gap: 0.75rem; }
+  .avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ---- FAQ ---- */
+  .faq-section { background: var(--surface); padding: var(--section-pad); }
+  .faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .faq-item {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+  }
+  .faq-item h3 { font-size: 1.02rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .faq-item p { font-size: 0.9rem; color: var(--silver); line-height: 1.7; }
+
+  /* ---- Final CTA (matches homepage) ---- */
+  .holiday-cta { background: var(--surface2); padding: var(--section-pad); }
+  .cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    background: var(--surface3);
+    border: 1px solid var(--border-gold);
+    border-radius: var(--radius-lg);
+    padding: 3rem;
+  }
+  .cta-text h2 { font-size: 1.6rem; margin-bottom: 0.5rem; }
+  .cta-text p { color: var(--silver); font-size: 0.95rem; }
+
+  @media (max-width: 1024px) {
+    .why-grid { grid-template-columns: repeat(2, 1fr); }
+    .looks-grid { grid-template-columns: repeat(2, 1fr); }
+    .steps-grid { grid-template-columns: 1fr; }
+    .step-arrow { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    .why-grid { grid-template-columns: 1fr; }
+    .looks-grid { grid-template-columns: 1fr; }
+    .testi-grid { grid-template-columns: 1fr; }
+    .cta-inner { flex-direction: column; text-align: center; }
+  }
+</style>
