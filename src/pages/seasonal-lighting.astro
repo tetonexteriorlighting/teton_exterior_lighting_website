@@ -180,14 +180,14 @@ const looks = [
       </div>
       <div class="faq-list">
         {[
-          { q: 'How is this different from your permanent lighting?', a: 'This is a traditional seasonal service: we hang string lights in the fall and remove them in January or February. Our permanent LED system is a separate, year-round installation that stays up and gets reprogrammed for every occasion. If you\'re not sure which fits your home, just ask when you request a quote.' },
+          { q: 'How is this different from your permanent lighting?', a: 'This is a traditional seasonal service: we hang string lights in the fall and remove them in January or February. Our <a href="/holiday-lighting">permanent LED system</a> is a separate, year-round installation that stays up and gets reprogrammed for every occasion. If you\'re not sure which fits your home, just ask when you request a quote.' },
           { q: 'When do you take the lights down?', a: 'Whenever you\'d like, January or February. Just let us know your preference and we\'ll get it on the schedule.' },
           { q: 'Do I need to buy or store any lights myself?', a: 'No. We bring commercial-grade lights, install them, and take them back down. There\'s nothing for you to purchase, store, or untangle.' },
           { q: 'Do you do commercial properties too?', a: 'Yes. We\'ve lit up local businesses right alongside homes, from clinics to community buildings, using the same professional installation and full removal service.' },
         ].map(f => (
           <div class="faq-item reveal">
             <h3>{f.q}</h3>
-            <p>{f.a}</p>
+            <p set:html={f.a} />
           </div>
         ))}
       </div>
@@ -379,6 +379,8 @@ const looks = [
   }
   .faq-item h3 { font-size: 1.02rem; font-weight: 700; margin-bottom: 0.5rem; }
   .faq-item p { font-size: 0.9rem; color: var(--silver); line-height: 1.7; }
+  .faq-item p a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  .faq-item p a:hover { color: var(--accent-bright); }
 
   /* ---- Final CTA ---- */
   .seasonal-cta { background: var(--surface2); padding: var(--section-pad); }

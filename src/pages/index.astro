@@ -22,7 +22,7 @@ import Footer from '../components/Footer.astro';
         Be the <span class="gold">Best-Lit House</span><br />on Your Block
       </h1>
       <p class="hero-sub">
-        Stop fighting with temporary lights every season. We install stunning, permanent LED lighting
+        Skip the ladder, the storage bins, and the annual hassle. We install stunning, permanent LED lighting
         that you control from your phone in any color, on any schedule, for any occasion.
       </p>
       <div class="hero-ctas">
@@ -37,6 +37,28 @@ import Footer from '../components/Footer.astro';
         <span>5–15 Year Warranty</span>
         <span class="sep">|</span>
         <span>Financing Available</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================
+       SERVICES SPLIT
+  =================================================== -->
+  <section class="services-split" id="services">
+    <div class="container">
+      <div class="split-grid">
+        <a href="/holiday-lighting" class="split-card reveal">
+          <span class="split-eyebrow">Permanent</span>
+          <h3>Permanent LED Lighting</h3>
+          <p>Install once, control from your phone forever. Any color, any occasion, every night of the year.</p>
+          <span class="split-link">Explore Permanent Lighting →</span>
+        </a>
+        <a href="/seasonal-lighting" class="split-card reveal">
+          <span class="split-eyebrow">Seasonal</span>
+          <h3>Seasonal Christmas Lighting</h3>
+          <p>We hang it every fall and take it down each winter. No ladders, no storage, just done for you.</p>
+          <span class="split-link">Explore Seasonal Lighting →</span>
+        </a>
       </div>
     </div>
   </section>
@@ -489,6 +511,58 @@ import Footer from '../components/Footer.astro';
     flex-wrap: wrap;
   }
   .sep { opacity: 0.3; }
+
+  /* ---- Services Split ---- */
+  .services-split {
+    background: var(--surface);
+    padding: 56px 0;
+  }
+  .split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .split-card {
+    display: block;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    transition: all var(--transition);
+  }
+  .split-card:hover {
+    border-color: var(--border-gold);
+    transform: translateY(-3px);
+  }
+  .split-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .split-card h3 {
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin: 0.5rem 0 0.6rem;
+  }
+  .split-card p {
+    font-size: 0.92rem;
+    color: var(--silver);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .split-link {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--white);
+    transition: color var(--transition);
+  }
+  .split-card:hover .split-link { color: var(--accent); }
+
+  @media (max-width: 768px) {
+    .split-grid { grid-template-columns: 1fr; }
+  }
 
   /* ---- Stats Bar ---- */
   .stats-bar {

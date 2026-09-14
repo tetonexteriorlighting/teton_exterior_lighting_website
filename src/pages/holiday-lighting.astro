@@ -188,10 +188,11 @@ const looks = [
           { q: 'Does cold weather affect the lights or the install?', a: 'No. ShowHome systems are built and tested for Idaho winters. The track and fixtures are weatherproofed for snow, ice, and extreme cold. Installation itself can happen right up until the ground freezes solid.' },
           { q: 'Can I use the same lights for Christmas, Halloween, and every day?', a: "Absolutely. That's the whole point of going permanent. Switch from warm white in November, to a full holiday show in December, to your everyday look in January, all in the same app." },
           { q: 'Do you offer financing for holiday installs?', a: 'Yes. We offer financing so the upgrade doesn\'t have to be one large upfront cost. Ask about it when you request your quote.' },
+          { q: 'What if I just want traditional lights for this Christmas, not a permanent system?', a: 'That\'s a different service we also offer: <a href="/seasonal-lighting">seasonal Christmas lighting</a>, where we hang string lights in the fall and take them down again in January or February. No long-term install required.' },
         ].map(f => (
           <div class="faq-item reveal">
             <h3>{f.q}</h3>
-            <p>{f.a}</p>
+            <p set:html={f.a} />
           </div>
         ))}
       </div>
@@ -385,6 +386,8 @@ const looks = [
   }
   .faq-item h3 { font-size: 1.02rem; font-weight: 700; margin-bottom: 0.5rem; }
   .faq-item p { font-size: 0.9rem; color: var(--silver); line-height: 1.7; }
+  .faq-item p a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  .faq-item p a:hover { color: var(--accent-bright); }
 
   /* ---- Final CTA (matches homepage) ---- */
   .holiday-cta { background: var(--surface2); padding: var(--section-pad); }
